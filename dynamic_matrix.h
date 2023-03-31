@@ -55,24 +55,6 @@ namespace linalg {
         friend std::istream &operator>>(std::istream& in, Matrix &matrix);
 
     private:
-        [[nodiscard]] std::vector<std::vector<double>>
-        subMatrix(std::size_t row, std::size_t col, std::size_t n) const {
-            std::vector<std::vector<double>> result(n, std::vector<double>(n));
-            std::size_t curRow = 0, curCol = 0;
-            for (std::size_t i = 0; i < n; i++) {
-                for (std::size_t j = 0; j < n; j++) {
-                    if (i != row && j != col) {
-                        result[curRow][curCol++] = data[i][j];
-                        if (curCol == n - 1) {
-                            curRow++;
-                            curCol = 0;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
-
 
         double determinant(std::vector<std::vector<double>>& a, std::size_t n) const {
             double det = 1, total = 1;
@@ -109,7 +91,7 @@ namespace linalg {
             return det / total;
         }
 
-        std::vector<std::vector<double>> getCofactor(std::vector<std::vector<double>>& a, std::size_t p, std::size_t q, std::size_t n) const {
+        static std::vector<std::vector<double>> getCofactor(std::vector<std::vector<double>>& a, std::size_t p, std::size_t q, std::size_t n) {
             std::size_t i = 0, j = 0;
             std::vector<std::vector<double>> ans(n, std::vector<double>(n));
             for (std::size_t row = 0; row < n; row++) {
