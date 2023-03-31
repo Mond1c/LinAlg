@@ -152,7 +152,7 @@ namespace linalg {
         }
 
         [[nodiscard]] Matrix transpose() const {
-            Matrix result(N, M);
+            Matrix result(M, N);
             for (std::size_t i = 0; i < N; i++) {
                 for (std::size_t j = 0; j < M; j++) {
                     result[j][i] = data[i][j];
