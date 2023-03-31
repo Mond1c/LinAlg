@@ -59,53 +59,75 @@ namespace linalg {
         friend std::ostream &operator<<(std::ostream &out, const Matrix<N1, M1> &matrix);
 
     private:
-        [[nodiscard]] std::vector<std::vector<double>>
-        subMatrix(std::size_t row, std::size_t col, std::size_t n) const {
-            std::vector<std::vector<double>> result(n, std::vector<double>(n));
-            std::size_t curRow = 0, curCol = 0;
-            for (std::size_t i = 0; i < N; i++) {
-                for (std::size_t j = 0; j < M; j++) {
-                    if (i != row && j != col) {
-                        result[curRow][curCol++] = data[i][j];
-                        if (curCol == N - 1) {
-                            curRow++;
-                            curCol = 0;
+        static std::vector<std::vector<double>>
+        getCofactor(std::vector<std::vector<double>> &a, std::size_t p, std::size_t q, std::size_t n) {
+            std::size_t i = 0, j = 0;
+            std::vector<std::vector<double>> ans(n, std::vector<double>(n));
+            for (std::size_t row = 0; row < n; row++) {
+                for (std::size_t col = 0; col < n; col++) {
+                    if (row != p && col != q) {
+                        ans[i][j++] = a[row][col];
+                        if (j == n - 1) {
+                            i++;
+                            j = 0;
                         }
                     }
                 }
             }
-            return result;
+            return ans;
         }
 
 
-        double determinantHelper(std::vector<std::vector<double>> &a, std::size_t n) const {
-            double determinant = 0;
-            if (n == 1) {
-                return a[0][0];
+        double determinant(std::vector<std::vector<double>> &a, std::size_t n) const {
+            double det = 1, total = 1;
+
+            for (std::size_t i = 0; i < n; i++) {
+                std::size_t index = i;
+                while (index < N && a[index][i] == 0) {
+                    index++;
+                }
+                if (index == n) {
+                    continue;
+                }
+                if (index != i) {
+                    for (std::size_t j = 0; j < n; j++) {
+                        std::swap(a[index][j], a[i][j]);
+                    }
+                    det = det * ((index - i) % 2 == 0 ? 1 : -1);
+                }
+
+                std::vector<double> temp = std::vector<double>(a[i].begin(), a[i].end());
+
+                for (std::size_t j = i + 1; j < n; j++) {
+                    double num1 = temp[i];
+                    double num2 = a[j][i];
+                    for (std::size_t k = 0; k < n; k++) {
+                        a[j][k] = (num1 * a[j][k]) - (num2 * temp[k]);
+                    }
+                    total *= num1;
+                }
             }
-            if (n == 2) {
-                return a[0][0] * a[1][1] - a[0][1] * a[1][0];
+            for (std::size_t i = 0; i < n; i++) {
+                det = det * a[i][i];
+            }
+            return det / total;
+        }
+
+        [[nodiscard]] std::vector<std::vector<double>>
+        getAdj(std::vector<std::vector<double>> &a, std::size_t n) const {
+            std::vector<std::vector<double>> ans(n, std::vector<double>(n));
+            if (n == 1) {
+                return ans;
             }
             double sign = 1;
             for (std::size_t i = 0; i < n; i++) {
-                auto sm = subMatrix(0, i, n);
-                determinant += sign * a[0][i] * determinantHelper(sm, n - 1);
-                sign = -sign;
-            }
-            return determinant;
-        }
-
-        [[nodiscard]] std::vector<std::vector<double>> getAdj() const {
-            std::vector<std::vector<double>> result(N, std::vector<double>(M));
-            double sign = 1;
-            for (std::size_t i = 0; i < N; i++) {
-                for (std::size_t j = 0; j < M; j++) {
-                    auto t = subMatrix(i, j, N);
+                for (std::size_t j = 0; j < n; j++) {
+                    auto temp = getCofactor(a, i, j, n);
                     sign = ((i + j) % 2 == 0) ? 1 : -1;
-                    result[j][i] = sign * determinantHelper(t, N - 1);
+                    ans[j][i] = (sign) * determinant(temp, n - 1);
                 }
             }
-            return result;
+            return ans;
         }
 
         [[nodiscard]] std::size_t lcm(std::size_t i, std::size_t j) const {
@@ -136,7 +158,7 @@ namespace linalg {
             for (std::size_t i = 0; i < N; i++) {
                 a[i] = std::vector<double>(data[i].begin(), data[i].end());
             }
-            return determinantHelper(a, N);
+            return determinant(a, N);
         }
 
         Matrix<N, M> inverse() const {
@@ -147,8 +169,12 @@ namespace linalg {
             if (det == 0) {
                 throw std::invalid_argument("can't find inverse matrix because determinant = 0");
             }
-            auto adj = getAdj();
-            Matrix<N, M> result;
+            std::vector<std::vector<double>> a(N);
+            for (std::size_t i = 0; i < N; i++) {
+                a[i] = std::vector<double>(data[i].begin(), data[i].end());
+            }
+            auto adj = getAdj(a, N);
+            Matrix result(N, M);
             for (std::size_t i = 0; i < N; i++) {
                 for (std::size_t j = 0; j < M; j++) {
                     result[i][j] = adj[i][j] / det;
@@ -306,5 +332,15 @@ namespace linalg {
             }
         }
         return out;
+    }
+
+    template<std::size_t M, std::size_t N>
+    std::istream &operator>>(std::istream &in, Matrix<M, N> &matrix) {
+        for (std::size_t i = 0; i < N; i++) {
+            for (std::size_t j = 0; j < M; j++) {
+                in >> matrix[i][j];
+            }
+        }
+        return in;
     }
 }

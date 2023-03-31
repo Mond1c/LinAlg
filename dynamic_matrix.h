@@ -12,8 +12,8 @@ namespace linalg {
     class Matrix {
     private:
         std::vector<std::vector<double>> data;
-        std::size_t N;
-        std::size_t M;
+        std::size_t N{};
+        std::size_t M{};
     public:
         Matrix() = default;
 
@@ -361,7 +361,7 @@ namespace linalg {
         return out;
     }
 
-    std::istream& operator>>(std::istream& in, Matrix &matrix) {
+    std::istream &operator>>(std::istream &in, Matrix &matrix) {
         std::size_t N = matrix.getN();
         std::size_t M = matrix.getM();
 
