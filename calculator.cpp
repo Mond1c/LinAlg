@@ -17,5 +17,5 @@ Matrix Calculator::solveSystemOfEquations(const linalg::Matrix& A, const linalg:
         C[i][A.getM()] = B[i][0];
     }
     C = C.triangle();
-
+    return C;
 }
