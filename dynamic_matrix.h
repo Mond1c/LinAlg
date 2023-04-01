@@ -208,7 +208,7 @@ namespace linalg {
             result.data = std::vector<std::vector<double>>(data.begin(), data.end());
             for (std::size_t i = 0; i < N - 1; i++) {
                 for (std::size_t j = i + 1; j < N; j++) {
-                    double coff = data[j][i] / data[i][i];
+                    double coff = result[j][i] / result[i][i];
                     for (std::size_t k = 0; k < M; k++) {
                         result[j][k] -= coff * result[i][k];
                     }
