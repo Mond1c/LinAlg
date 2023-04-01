@@ -4,6 +4,6 @@
 namespace linalg {
     class Calculator {
     public:
-        static Matrix solveSystemOfEquations(const Matrix& A, const Matrix& B);
+        static std::vector<std::string>  solveSystemOfEquations(const Matrix& A, const Matrix& B);
     };
 }
