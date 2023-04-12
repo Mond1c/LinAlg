@@ -1,5 +1,6 @@
 #pragma once
 #include "dynamic_matrix.h"
+#include <climits>
 
 namespace linalg {
 double gcd(double a, double b) {
