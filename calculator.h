@@ -4,7 +4,7 @@
 
 namespace linalg {
 double gcd(double a, double b) {
-  if (a < 0.001 && b < 0.001) {
+  if (std::abs(a) < 0.001 && std::abs(b) < 0.001) {
     return INT_MAX;
   }
   if (a < b) {
