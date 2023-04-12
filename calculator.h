@@ -3,6 +3,9 @@
 
 namespace linalg {
 double gcd(double a, double b) {
+  if (a < 0.001 && b < 0.001) {
+    return INT_MAX;
+  }
   if (a < b) {
     return gcd(b, a);
   }
