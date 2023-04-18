@@ -16,17 +16,39 @@ public class Calculator {
         }
         c.triangle();
         final StringBuilder ans = new StringBuilder();
-        final StringBuilder builder = new StringBuilder();
+        StringBuilder left = new StringBuilder();
+        StringBuilder right = new StringBuilder();
         for (int i = c.rows() - 1; i >= 0; i--) {
-            builder.setLength(0);
+            left.setLength(0);
+            right.setLength(0);
             for (int j = 0; j < c.cols() - 1; j++) {
                 if (c.get(i, j) != 0) {
-                    builder.append(c.get(i, j)).append(" * x").append(j + 1).append(" ");
+                    if (c.get(i, j) > 0) {
+                        left.append(c.get(i, j)).append(" * x").append(j + 1).append(" ");
+                        if (j != c.cols() - 2) {
+                            left.append("+ ");
+                        }
+                    } else {
+                        right.append(-c.get(i, j)).append(" * x").append(j + 1).append(" ");
+                        if (j != c.cols() - 2) {
+                            right.append("+ ");
+                        }
+                    }
                 }
             }
-            if (!builder.isEmpty()) {
-                builder.append('=').append(c.get(i, c.cols() - 1)).append('\n');
-                ans.append(builder);
+            if (!left.isEmpty() || !right.isEmpty()) {
+                if (left.length() < right.length()) {
+                    StringBuilder tmp = left;
+                    left = right;
+                    right = tmp;
+                }
+                ans.append(left).append('=').append(right);
+                if (!right.isEmpty()) {
+                    ans.append(" + ");
+                } else {
+                    ans.append(" ");
+                }
+                ans.append(c.get(i, c.cols() - 1)).append('\n');
             }
         }
         return ans.toString();
