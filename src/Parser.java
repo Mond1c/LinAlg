@@ -43,7 +43,7 @@ public class Parser {
             case TRANSPOSE_MATRIX -> transpose();
             case RANK_MATRIX -> rank();
             case TRIANGLE_MATRIX -> triangle();
-            case SOLVE_SYSTEM_OF_EQUATIONS -> null;
+            case SOLVE_SYSTEM_OF_EQUATIONS -> solve();
             default -> throw new UnsupportedOperationException("Unsupported operation");
         };
     }
@@ -73,6 +73,12 @@ public class Parser {
             }
         }
         return matrix;
+    }
+
+    private String solve() {
+        Matrix a = parseMatrix(parts.get(0));
+        Matrix b = parseMatrix(parts.get(2));
+        return Calculator.solveSystemOfEquations(a, b);
     }
 
     private String operation(Matrix a, Matrix b, char operation) {
