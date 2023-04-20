@@ -1,3 +1,7 @@
+package expression.operations;
+
+import expression.parts.Matrix;
+
 public class Calculator {
     public static String solveSystemOfEquations(Matrix a, Matrix b) {
         if (a.rows() != b.rows()) {

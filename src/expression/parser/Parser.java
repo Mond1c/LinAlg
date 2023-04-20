@@ -1,0 +1,148 @@
+package expression.parser;
+
+import expression.PartOfExpression;
+import expression.operations.*;
+import expression.parts.Const;
+import expression.parts.Matrix;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Parser extends BaseParser {
+    private String expression;
+
+    public PartOfExpression parse(String expression) {
+        setSource(new StringSource(expression));
+        this.expression = expression;
+        final PartOfExpression expr = parseExpression();
+        if (!eof()) {
+            if (take(')')) {
+                throw error("No opening parenthesis");
+            }
+            throw error("Unsupported character");
+        }
+        return expr;
+    }
+
+    private PartOfExpression parseTypesUnaryOperationsAndBrackets() {
+        skipWhitespaces();
+        if (take('(')) {
+            PartOfExpression part = parseExpression();
+            if (!take(')')) {
+                throw error("No closing parenthesis");
+            }
+            return part;
+        } else if (between('0', '9')) {
+            return parseConst(false);
+        } else if (take('-')) {
+            if (between('0', '9')) {
+                return parseConst(true);
+            }
+            throw error("Negate is unsupported operation");
+        } else if (take('{')) {
+            return parseMatrix();
+        } else if (take("det")) {
+            return new Determinant(parseTypesUnaryOperationsAndBrackets());
+        } else if (take("rank")) {
+            return new Rank(parseMatrix());
+        } else if (take("transpose")) {
+            return new Transpose(parseTypesUnaryOperationsAndBrackets());
+        } else if (take("triangle")) {
+            return new Triangle(parseTypesUnaryOperationsAndBrackets());
+        } else if (take("inverse")) {
+            return new Inverse(parseTypesUnaryOperationsAndBrackets());
+        }
+        throw error("No argument");
+    }
+
+    private PartOfExpression parseExpression() {
+        return parsePlusMinus();
+    }
+
+    private PartOfExpression parsePlusMinus() {
+        PartOfExpression part = parseMulDiv();
+        skipWhitespaces();
+        while (test('+') || test('-')) {
+            part = parseOperation(String.valueOf(take()), part, parseMulDiv());
+        }
+        return part;
+    }
+
+    private PartOfExpression parseMulDiv() {
+        PartOfExpression part = parseTypesUnaryOperationsAndBrackets();
+        skipWhitespaces();
+        while (test('*') || test('-')) {
+            part = parseOperation(String.valueOf(take()), part, parseTypesUnaryOperationsAndBrackets());
+            skipWhitespaces();
+        }
+        return part;
+    }
+
+    private Const parseConst(boolean minus) {
+        final StringBuilder builder = new StringBuilder();
+        if (minus) {
+            builder.append('-');
+        }
+        while (between('0', '9') || test('.')) {
+            builder.append(take());
+        }
+        skipWhitespaces();
+        if (between('0', '9')) {
+            throw error("Spaces in number");
+        }
+        return new Const(Double.parseDouble(builder.toString()));
+    }
+
+    private Matrix parseMatrix() {
+        List<Double> data = new ArrayList<>();
+        int bracketCount = 1;
+        int n = 1;
+        int m = 0;
+        boolean firstCloseBracket = false;
+        while (bracketCount != 0) {
+            if (take('}')) {
+                bracketCount--;
+                if (!firstCloseBracket) {
+                    m++;
+                }
+                firstCloseBracket = true;
+            } else if (take('{')) {
+                bracketCount++;
+            } else if (between('0', '9')) {
+                data.add(parseConst(false).value());
+            } else if (take('-')) {
+                data.add(parseConst(true).value());
+            } else if (take(',')) {
+                if (!firstCloseBracket) {
+                    m++;
+                } else if (bracketCount == 1) {
+                    n++;
+                }
+            } else {
+                take();
+            }
+
+            if (bracketCount > 2) {
+                throw error("You can use only two {");
+            }
+        }
+        double[][] fixedData = new double[n][m];
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                fixedData[i][j] = data.get(k++);
+            }
+        }
+        return new Matrix(fixedData);
+    }
+
+    private BinaryOperation parseOperation(final String operation, final PartOfExpression left, final PartOfExpression right) {
+        return switch (operation) {
+            case "+" -> new Add(left, right);
+            case "-" -> new Subtract(left, right);
+            case "*" -> new Multiply(left, right);
+            case "/" -> new Divide(left, right);
+            default -> throw error("Unsupported operation");
+        };
+    }
+}

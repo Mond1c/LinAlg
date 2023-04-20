@@ -1,8 +1,11 @@
+package expression.parts;
+
+import expression.PartOfExpression;
+
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
-public class Matrix {
+public class Matrix implements Type, PartOfExpression {
     private int n;
     private int m;
     private double[][] data;
@@ -19,6 +22,8 @@ public class Matrix {
 
     public Matrix(double[][] data) {
         this.data = data;
+        this.n = data.length;
+        this.m = data[0].length;
     }
 
     public double get(int row, int column) {
@@ -102,11 +107,10 @@ public class Matrix {
         if (n == 1) {
             return ans;
         }
-        double sign = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 double[][] temp = getCofactor(a, i, j, n);
-                sign = ((i + j) % 2 == 0) ? 1 : -1;
+                double sign = ((i + j) % 2 == 0) ? 1 : -1;
                 ans[j][i] = (sign) * determinant(temp, n - 1);
             }
         }
@@ -153,7 +157,7 @@ public class Matrix {
         }
     }
 
-    int rank() {
+    public int rank() {
         int rank = 0;
         double[][] a = copyData();
         boolean[] selected_row = new boolean[n];
@@ -220,11 +224,11 @@ public class Matrix {
         return result;
     }
 
-    public Matrix multiply(double scalar) {
+    public Matrix multiply(Const scalar) {
         Matrix result = new Matrix(n, m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                result.data[i][j] = data[i][j] * scalar;
+                result.data[i][j] = data[i][j] * scalar.value();
             }
         }
         return result;
@@ -294,5 +298,52 @@ public class Matrix {
                 matrix.data[i][j] = scanner.nextDouble();
             }
         }
+    }
+
+    @Override
+    public PartOfExpression add(Type other) {
+        if (other instanceof Matrix matrix) {
+            return add(matrix);
+        }
+        throw new IllegalArgumentException("You can add to the matrix only a matrix!");
+    }
+
+    @Override
+    public PartOfExpression subtract(Type other) {
+        if (other instanceof Matrix matrix) {
+            return subtract(matrix);
+        }
+        throw new IllegalArgumentException("You can subtract to the matrix only a matrix!");
+    }
+
+    @Override
+    public PartOfExpression multiply(Type other) {
+        if (other instanceof Matrix matrix) {
+            return multiply(matrix);
+        } else if (other instanceof Const c) {
+            return multiply(c);
+        }
+        throw new IllegalArgumentException("You can add to the matrix only a matrix or a const!");
+    }
+
+    @Override
+    public PartOfExpression divide(Type other) {
+        throw new IllegalArgumentException("Unsupported operation with matrices");
+    }
+
+    @Override
+    public PartOfExpression negate() {
+        Matrix result = new Matrix(n, m);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                result.set(i, j, -result.get(i, j));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public PartOfExpression evaluate() {
+        return this;
     }
 }
