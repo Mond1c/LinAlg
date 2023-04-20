@@ -71,11 +71,15 @@ public class Parser extends BaseParser {
     private PartOfExpression parseMulDiv() {
         PartOfExpression part = parseTypesUnaryOperationsAndBrackets();
         skipWhitespaces();
-        while (test("solve") || test('*') || test('-')) {
-            if (take("solve")) {
+        while (true) {
+            if (take('*')) {
+                part = parseOperation("*", part, parseTypesUnaryOperationsAndBrackets());
+            } else if (take('/')) {
+                part = parseOperation("/", part, parseTypesUnaryOperationsAndBrackets());
+            } else if (take("solve")) {
                 part = parseOperation("solve", part, parseTypesUnaryOperationsAndBrackets());
             } else {
-                part = parseOperation(String.valueOf(take()), part, parseTypesUnaryOperationsAndBrackets());
+                break;
             }
             skipWhitespaces();
         }

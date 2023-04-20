@@ -32,7 +32,7 @@ public class BaseParser {
                 return false;
             }
         }
-        source.back(i + 1);
+        source.back(i);
         return true;
     }
 
