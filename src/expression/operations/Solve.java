@@ -11,6 +11,9 @@ public class Solve extends BinaryOperation {
 
     @Override
     protected PartOfExpression calculate(Type x, Type y) {
-        return null;
+        if (!(x instanceof Matrix matrix1) || !(y instanceof Matrix matrix2)) {
+            throw new IllegalArgumentException("You can solve system of equations only with two matrcies");
+        }
+        return Calculator.solveSystemOfEquations(matrix1, matrix2);
     }
 }

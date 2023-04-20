@@ -71,8 +71,12 @@ public class Parser extends BaseParser {
     private PartOfExpression parseMulDiv() {
         PartOfExpression part = parseTypesUnaryOperationsAndBrackets();
         skipWhitespaces();
-        while (test('*') || test('-')) {
-            part = parseOperation(String.valueOf(take()), part, parseTypesUnaryOperationsAndBrackets());
+        while (test("solve") || test('*') || test('-')) {
+            if (take("solve")) {
+                part = parseOperation("solve", part, parseTypesUnaryOperationsAndBrackets());
+            } else {
+                part = parseOperation(String.valueOf(take()), part, parseTypesUnaryOperationsAndBrackets());
+            }
             skipWhitespaces();
         }
         return part;
@@ -142,6 +146,7 @@ public class Parser extends BaseParser {
             case "-" -> new Subtract(left, right);
             case "*" -> new Multiply(left, right);
             case "/" -> new Divide(left, right);
+            case "solve" -> new Solve(left, right);
             default -> throw error("Unsupported operation");
         };
     }

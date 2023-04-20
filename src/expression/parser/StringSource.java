@@ -20,6 +20,10 @@ public class StringSource {
         return data.charAt(pos--);
     }
 
+    public void back(int n) {
+        pos -= n;
+    }
+
     public IllegalArgumentException error(final String message) {
         return new IllegalArgumentException(pos + ": " + message);
     }

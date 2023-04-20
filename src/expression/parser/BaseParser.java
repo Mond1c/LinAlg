@@ -24,6 +24,18 @@ public class BaseParser {
         return ch == expected;
     }
 
+    protected boolean test(final String expected) {
+        int i;
+        for (i = 0; i < expected.length(); i++) {
+            if (!take(expected.charAt(i))) {
+                source.back(i + 1);
+                return false;
+            }
+        }
+        source.back(i + 1);
+        return true;
+    }
+
     protected boolean take(final char expected) {
         if (test(expected)) {
             take();
@@ -35,9 +47,7 @@ public class BaseParser {
     protected boolean take(final String expected) {
         for (int i = 0; i < expected.length(); i++) {
             if (!take(expected.charAt(i))) {
-                while (i-- > 0) {
-                    source.back();
-                }
+                source.back(i);
                 return false;
             }
         }
