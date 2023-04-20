@@ -2,7 +2,9 @@ package expression.parts;
 
 import expression.PartOfExpression;
 
-public record Const(double value) implements PartOfExpression, Type {
+import java.math.BigDecimal;
+
+public record Const(BigDecimal value) implements PartOfExpression, Type {
 
     @Override
     public boolean equals(final Object other) {
@@ -22,7 +24,7 @@ public record Const(double value) implements PartOfExpression, Type {
     @Override
     public PartOfExpression add(Type other) {
         if (other instanceof Const c) {
-            return new Const(value + c.value);
+            return new Const(value.add(c.value));
         }
         throw new IllegalArgumentException("You can add to the const only a const");
     }
@@ -30,7 +32,7 @@ public record Const(double value) implements PartOfExpression, Type {
     @Override
     public PartOfExpression subtract(Type other) {
         if (other instanceof Const c) {
-            return new Const(value - c.value);
+            return new Const(value.subtract(c.value));
         }
         throw new IllegalArgumentException("You can subtract to the const only a const");
     }
@@ -38,7 +40,7 @@ public record Const(double value) implements PartOfExpression, Type {
     @Override
     public PartOfExpression multiply(Type other) {
         if (other instanceof Const c) {
-            return new Const(value * c.value);
+            return new Const(value.multiply(c.value));
         } else if (other instanceof Matrix matrix) {
             return matrix.multiply(this);
         }
@@ -48,13 +50,13 @@ public record Const(double value) implements PartOfExpression, Type {
     @Override
     public PartOfExpression divide(Type other) {
         if (other instanceof Const c) {
-            return new Const(value / c.value);
+            return new Const(value.divide(c.value));
         }
         throw new IllegalArgumentException("You can divide to the const only a const");
     }
 
     @Override
     public PartOfExpression negate() {
-        return new Const(-value);
+        return new Const(value.negate());
     }
 }

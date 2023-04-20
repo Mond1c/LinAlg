@@ -5,6 +5,8 @@ import expression.parts.Const;
 import expression.parts.Matrix;
 import expression.parts.Type;
 
+import java.math.BigDecimal;
+
 public class Rank extends UnaryOperation {
     public Rank(PartOfExpression part) {
         super(part, "rank");
@@ -15,6 +17,6 @@ public class Rank extends UnaryOperation {
         if (!(x instanceof Matrix matrix)) {
             throw new IllegalArgumentException("This operation only for matrices");
         }
-        return new Const(matrix.rank());
+        return new Const(BigDecimal.valueOf(matrix.rank()));
     }
 }

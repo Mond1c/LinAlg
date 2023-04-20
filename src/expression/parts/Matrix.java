@@ -2,13 +2,14 @@ package expression.parts;
 
 import expression.PartOfExpression;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Matrix implements Type, PartOfExpression {
     private int n;
     private int m;
-    private double[][] data;
+    private BigDecimal[][] data;
 
     public Matrix() {
 
@@ -17,43 +18,43 @@ public class Matrix implements Type, PartOfExpression {
     public Matrix(int n, int m) {
         this.n = n;
         this.m = m;
-        this.data = new double[n][m];
+        this.data = new BigDecimal[n][m];
     }
 
-    public Matrix(double[][] data) {
+    public Matrix(BigDecimal[][] data) {
         this.data = data;
         this.n = data.length;
         this.m = data[0].length;
     }
 
-    public double get(int row, int column) {
+    public BigDecimal get(int row, int column) {
         if (row < 0 || row >= n || column < 0 || column > m) {
             throw new IndexOutOfBoundsException("Index out of bounds (row, column) = (" + row + ", " + column + ")");
         }
         return data[row][column];
     }
 
-    public void set(int row, int column, double newValue) {
+    public void set(int row, int column, BigDecimal newValue) {
         if (row < 0 || row >= n || column < 0 || column > m) {
             throw new IndexOutOfBoundsException("Index out of bounds (row, column) = (" + row + ", " + column + ")");
         }
         data[row][column] = newValue;
     }
 
-    private double[][] copyData() {
-        double[][] result = new double[n][m];
+    private BigDecimal[][] copyData() {
+        BigDecimal[][] result = new BigDecimal[n][m];
         for (int i = 0; i < n; i++) {
             result[i] = Arrays.copyOf(data[i], m);
         }
         return result;
     }
 
-    private double determinant(double[][] a, int n) {
-        double det = 1, total = 1;
+    private BigDecimal determinant(BigDecimal[][] a, int n) {
+        BigDecimal det = BigDecimal.valueOf(1), total = BigDecimal.valueOf(1);
 
         for (int i = 0; i < n; i++) {
             int index = i;
-            while (index < n && a[index][i] == 0) {
+            while (index < n && a[index][i].equals(BigDecimal.ZERO)) {
                 index++;
             }
             if (index == n) {
@@ -61,33 +62,33 @@ public class Matrix implements Type, PartOfExpression {
             }
             if (index != i) {
                 for (int j = 0; j < n; j++) {
-                    double tmp = a[index][j];
+                    BigDecimal tmp = a[index][j];
                     a[index][j] = a[i][j];
                     a[i][j] = tmp;
                 }
-                det = det * ((index - i) % 2 == 0 ? 1 : -1);
+                det = det.multiply(BigDecimal.valueOf((index - i) % 2 == 0 ? 1 : -1));
             }
-            double[] temp = Arrays.copyOf(a[i], a[i].length);
+            BigDecimal[] temp = Arrays.copyOf(a[i], a[i].length);
 
             for (int j = i + 1; j < n; j++) {
-                double num1 = temp[i];
-                double num2 = a[j][i];
+                BigDecimal num1 = temp[i];
+                BigDecimal num2 = a[j][i];
                 for (int k = 0; k < n; k++) {
-                    a[j][k] = (num1 * a[j][k]) - (num2 * temp[k]);
+                    a[j][k] = (num1.multiply(a[j][k])).subtract(num2.multiply(temp[k]));
                 }
-                total *= num1;
+                total = total.multiply(num1);
             }
         }
 
         for (int i = 0; i < n; i++) {
-            det = det * a[i][i];
+            det = det.multiply(a[i][i]);
         }
-        return det / total;
+        return det.divide(total);
     }
 
-    private double[][] getCofactor(double[][] a, int p, int q, int n) {
+    private BigDecimal[][] getCofactor(BigDecimal[][] a, int p, int q, int n) {
         int i = 0, j = 0;
-        double[][] ans = new double[n][n];
+        BigDecimal[][] ans = new BigDecimal[n][n];
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
                 if (row != p && col != q) {
@@ -102,16 +103,16 @@ public class Matrix implements Type, PartOfExpression {
         return ans;
     }
 
-    private double[][] getAdj(double[][] a, int n) {
-        double[][] ans = new double[n][n];
+    private BigDecimal[][] getAdj(BigDecimal[][] a, int n) {
+        BigDecimal[][] ans = new BigDecimal[n][n];
         if (n == 1) {
             return ans;
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                double[][] temp = getCofactor(a, i, j, n);
-                double sign = ((i + j) % 2 == 0) ? 1 : -1;
-                ans[j][i] = (sign) * determinant(temp, n - 1);
+                BigDecimal[][] temp = getCofactor(a, i, j, n);
+                BigDecimal sign = BigDecimal.valueOf(((i + j) % 2 == 0) ? 1 : -1);
+                ans[j][i] = sign.multiply(determinant(temp, n - 1));
             }
         }
         return ans;
@@ -126,7 +127,7 @@ public class Matrix implements Type, PartOfExpression {
     }
 
     public void transpose() {
-        double[][] temp = copyData();
+        BigDecimal[][] temp = copyData();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 data[j][i] = temp[i][j];
@@ -134,7 +135,7 @@ public class Matrix implements Type, PartOfExpression {
         }
     }
 
-    public double determinant() {
+    public BigDecimal determinant() {
         if (n != m) {
             throw new IllegalArgumentException("Can't find determinant of non-square matrix " + n + " != " + m);
         }
@@ -145,26 +146,26 @@ public class Matrix implements Type, PartOfExpression {
         if (n != m) {
             throw new IllegalArgumentException("Can't find inverse matrix of non-square matrix " + n + " != " + m);
         }
-        double det = determinant();
-        if (det == 0) {
+        BigDecimal det = determinant();
+        if (det.equals(BigDecimal.ZERO)) {
             throw new IllegalArgumentException("Can't find inverse matrix with determinant equals 0");
         }
-        double[][] adj = getAdj(copyData(), n);
+        BigDecimal[][] adj = getAdj(copyData(), n);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                data[i][j] = adj[i][j] / det;
+                data[i][j] = adj[i][j].divide(det);
             }
         }
     }
 
     public int rank() {
         int rank = 0;
-        double[][] a = copyData();
+        BigDecimal[][] a = copyData();
         boolean[] selected_row = new boolean[n];
         for (int i = 0; i < m; i++) {
             int j;
             for (j = 0; j < n; j++) {
-                if (!selected_row[j] && Math.abs(a[j][i]) > 1E-9) {
+                if (!selected_row[j] && a[j][i].abs().compareTo(BigDecimal.valueOf(1E-9)) > 0) {
                     break;
                 }
             }
@@ -173,12 +174,12 @@ public class Matrix implements Type, PartOfExpression {
                 rank++;
                 selected_row[j] = true;
                 for (int k = i + 1; k < m; k++) {
-                    a[j][k] /= a[j][i];
+                    a[j][k] = a[j][k].divide(a[j][i]);
                 }
                 for (int k = 0; k < n; k++) {
-                    if (k != j && Math.abs(a[k][i]) > 1E-9) {
+                    if (k != j && a[k][i].abs().compareTo(BigDecimal.valueOf(1E-9)) > 0) {
                         for (int p = i + 1; p < m; p++) {
-                            a[k][p] -= a[j][p] * a[k][i];
+                            a[k][p] =  a[k][p].subtract(a[j][p].multiply(a[k][i]));
                         }
                     }
                 }
@@ -190,9 +191,9 @@ public class Matrix implements Type, PartOfExpression {
     public void triangle() {
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
-                double coff = data[j][i] / data[i][i];
+                BigDecimal coff = data[j][i].divide(data[i][i]);
                 for (int k = 0; k < m; k++) {
-                    data[j][k] -= coff * data[i][k];
+                    data[j][k] = data[j][k].subtract(coff.multiply(data[i][k]));
                 }
             }
         }
@@ -205,7 +206,7 @@ public class Matrix implements Type, PartOfExpression {
         Matrix result = new Matrix(n, m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                result.data[i][j] = data[i][j] + other.data[i][j];
+                result.data[i][j] = data[i][j].add(other.data[i][j]);
             }
         }
         return result;
@@ -218,7 +219,7 @@ public class Matrix implements Type, PartOfExpression {
         Matrix result = new Matrix(n, m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                result.data[i][j] = data[i][j] - other.data[i][j];
+                result.data[i][j] = data[i][j].subtract(other.data[i][j]);
             }
         }
         return result;
@@ -228,7 +229,7 @@ public class Matrix implements Type, PartOfExpression {
         Matrix result = new Matrix(n, m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                result.data[i][j] = data[i][j] * scalar.value();
+                result.data[i][j] = data[i][j].multiply(scalar.value());
             }
         }
         return result;
@@ -238,9 +239,9 @@ public class Matrix implements Type, PartOfExpression {
         Matrix result = new Matrix(n, other.m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < other.m; j++) {
-                result.data[i][j] = 0;
+                result.data[i][j] = BigDecimal.ZERO;
                 for (int k = 0; k < m; k++) {
-                    result.data[i][j] += data[i][k] * other.data[k][j];
+                    result.data[i][j] = result.data[i][j].add(data[i][k].multiply(other.data[k][j]));
                 }
             }
         }
@@ -252,7 +253,7 @@ public class Matrix implements Type, PartOfExpression {
         int maxLength = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                maxLength = Math.max(maxLength, Double.toString(data[i][j]).length());
+                maxLength = Math.max(maxLength, data[i][j].toString().length());
             }
         }
         final StringBuilder builder = new StringBuilder();
@@ -262,7 +263,7 @@ public class Matrix implements Type, PartOfExpression {
                     builder.append("| ");
                 }
                 builder.append(data[i][j]);
-                builder.append(" ".repeat(Math.max(0, maxLength - Double.toString(data[i][j]).length() + 1)));
+                builder.append(" ".repeat(Math.max(0, maxLength - data[i][j].toString().length() + 1)));
             }
             if (i != n - 1) {
                 builder.append('\n');
@@ -284,7 +285,7 @@ public class Matrix implements Type, PartOfExpression {
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (matrix.data[i][j] != data[i][j]) {
+                if (!matrix.data[i][j].equals(data[i][j])) {
                     return false;
                 }
             }
@@ -295,7 +296,7 @@ public class Matrix implements Type, PartOfExpression {
     public static void readMatrix(Matrix matrix, final Scanner scanner) {
         for (int i = 0; i < matrix.n; i++) {
             for (int j = 0; j < matrix.m; j++) {
-                matrix.data[i][j] = scanner.nextDouble();
+                matrix.data[i][j] = scanner.nextBigDecimal();
             }
         }
     }
@@ -336,7 +337,7 @@ public class Matrix implements Type, PartOfExpression {
         Matrix result = new Matrix(n, m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                result.set(i, j, -result.get(i, j));
+                result.set(i, j, result.get(i, j).negate());
             }
         }
         return result;

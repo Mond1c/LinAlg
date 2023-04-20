@@ -2,6 +2,8 @@ package expression.operations;
 
 import expression.parts.Matrix;
 
+import java.math.BigDecimal;
+
 public class Calculator {
     public static String solveSystemOfEquations(Matrix a, Matrix b) {
         if (a.rows() != b.rows()) {
@@ -26,14 +28,14 @@ public class Calculator {
             left.setLength(0);
             right.setLength(0);
             for (int j = 0; j < c.cols() - 1; j++) {
-                if (c.get(i, j) != 0) {
-                    if (c.get(i, j) > 0) {
+                if (!c.get(i, j).equals(BigDecimal.ZERO)) {
+                    if (c.get(i, j).compareTo(BigDecimal.ZERO) > 0) {
                         left.append(c.get(i, j)).append(" * x").append(j + 1).append(" ");
                         if (j != c.cols() - 2) {
                             left.append("+ ");
                         }
                     } else {
-                        right.append(-c.get(i, j)).append(" * x").append(j + 1).append(" ");
+                        right.append(c.get(i, j).negate()).append(" * x").append(j + 1).append(" ");
                         if (j != c.cols() - 2) {
                             right.append("+ ");
                         }

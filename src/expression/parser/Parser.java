@@ -5,15 +5,15 @@ import expression.operations.*;
 import expression.parts.Const;
 import expression.parts.Matrix;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Parser extends BaseParser {
-    private String expression;
+
 
     public PartOfExpression parse(String expression) {
         setSource(new StringSource(expression));
-        this.expression = expression;
         final PartOfExpression expr = parseExpression();
         if (!eof()) {
             if (take(')')) {
@@ -52,7 +52,7 @@ public class Parser extends BaseParser {
         } else if (take("inverse")) {
             return new Inverse(parseTypesUnaryOperationsAndBrackets());
         }
-        throw error("No argument");
+        throw error("No argument or unexpected token");
     }
 
     private PartOfExpression parseExpression() {
@@ -90,11 +90,11 @@ public class Parser extends BaseParser {
         if (between('0', '9')) {
             throw error("Spaces in number");
         }
-        return new Const(Double.parseDouble(builder.toString()));
+        return new Const(new BigDecimal(builder.toString()));
     }
 
     private Matrix parseMatrix() {
-        List<Double> data = new ArrayList<>();
+        List<BigDecimal> data = new ArrayList<>();
         int bracketCount = 1;
         int n = 1;
         int m = 0;
@@ -126,7 +126,7 @@ public class Parser extends BaseParser {
                 throw error("You can use only two {");
             }
         }
-        double[][] fixedData = new double[n][m];
+        BigDecimal[][] fixedData = new BigDecimal[n][m];
         int k = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
