@@ -272,10 +272,9 @@ public class Matrix {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Matrix)) {
+        if (!(other instanceof Matrix matrix)) {
             return false;
         }
-        Matrix matrix = (Matrix) other;
         if (n != matrix.n || m != matrix.m) {
             return false;
         }

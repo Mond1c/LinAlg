@@ -101,6 +101,7 @@ public class Parser {
             case '+' -> a.add(b).toString();
             case '-' -> a.subtract(b).toString();
             case '*' -> a.multiply(b).toString();
+            case '=' -> a.equals(b) ? "true" : "false";
             default -> throw new IllegalArgumentException("Invalid operation: " + operation);
         };
     }
