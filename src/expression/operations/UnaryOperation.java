@@ -16,7 +16,7 @@ public abstract class UnaryOperation implements PartOfExpression {
 
     @Override
     public PartOfExpression evaluate() {
-        if (!(part instanceof Type p)) {
+        if (!(part.evaluate() instanceof Type p)) {
             throw new IllegalArgumentException("Can't make operation with not Type classes");
         }
         return calculate(p);

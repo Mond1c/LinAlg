@@ -38,7 +38,7 @@ public class Parser extends BaseParser {
             if (between('0', '9')) {
                 return parseConst(true);
             }
-            throw error("Negate is unsupported operation");
+            return new Negate(parseTypesUnaryOperationsAndBrackets());
         } else if (take('{')) {
             return parseMatrix();
         } else if (take("det")) {
