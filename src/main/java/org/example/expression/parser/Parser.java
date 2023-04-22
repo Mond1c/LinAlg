@@ -45,7 +45,7 @@ public class Parser extends BaseParser {
         } else if (take("det")) {
             return new Determinant(parseTypesUnaryOperationsAndBrackets());
         } else if (take("rank")) {
-            return new Rank(parseMatrix());
+            return new Rank(parseTypesUnaryOperationsAndBrackets());
         } else if (take("transpose")) {
             return new Transpose(parseTypesUnaryOperationsAndBrackets());
         } else if (take("triangle")) {
