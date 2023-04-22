@@ -336,6 +336,7 @@ public class Matrix implements Type, PartOfExpression {
     @Override
     public PartOfExpression negate() {
         Matrix result = new Matrix(n, m);
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 result.set(i, j, get(i, j).negate());
