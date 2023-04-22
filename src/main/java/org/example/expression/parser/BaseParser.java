@@ -26,13 +26,16 @@ public class BaseParser {
 
     protected boolean test(final String expected) {
         int i;
+        char c = ch;
         for (i = 0; i < expected.length(); i++) {
             if (!take(expected.charAt(i))) {
                 source.back(i + 1);
+                ch = c;
                 return false;
             }
         }
         source.back(i);
+        ch = c;
         return true;
     }
 
@@ -45,9 +48,11 @@ public class BaseParser {
     }
 
     protected boolean take(final String expected) {
+        char c = ch;
         for (int i = 0; i < expected.length(); i++) {
             if (!take(expected.charAt(i))) {
                 source.back(i);
+                ch = c;
                 return false;
             }
         }

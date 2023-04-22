@@ -24,6 +24,10 @@ public class StringSource {
         pos -= n;
     }
 
+    public char cur() {
+        return data.charAt(pos);
+    }
+
     public IllegalArgumentException error(final String message) {
         return new IllegalArgumentException(pos + ": " + message);
     }
