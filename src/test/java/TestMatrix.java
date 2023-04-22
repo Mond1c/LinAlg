@@ -15,12 +15,12 @@ import java.util.Random;
 public class TestMatrix {
 
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         System.out.println("Matrix test is starting");
     }
 
     @Test
-    void testAdd() {
+    public void testAdd() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
@@ -31,7 +31,7 @@ public class TestMatrix {
     }
 
     @Test
-    void testSubtract() {
+    public void testSubtract() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(2), BigDecimal.valueOf(4)},
                 {BigDecimal.valueOf(6), BigDecimal.valueOf(8)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
@@ -42,7 +42,7 @@ public class TestMatrix {
     }
 
     @Test
-    void testMultiplyByScalar() {
+    public void testMultiplyByScalar() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         BigDecimal b = BigDecimal.TWO;
@@ -52,7 +52,7 @@ public class TestMatrix {
     }
 
     @Test
-    void testMultiplyByMatrix() {
+    public void testMultiplyByMatrix() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
@@ -63,7 +63,7 @@ public class TestMatrix {
     }
 
     @Test
-    void testTranspose() {
+    public void testTranspose() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(3)},
@@ -73,7 +73,7 @@ public class TestMatrix {
     }
 
     @Test
-    void testInverse() {
+    public void testInverse() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(-2), BigDecimal.valueOf(1)},
@@ -83,21 +83,21 @@ public class TestMatrix {
     }
 
     @Test
-    void testDeterminant() {
+    public void testDeterminant() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Assertions.assertEquals(a.determinant(), BigDecimal.TWO.negate());
     }
 
     @Test
-    void testRank() {
+    public void testRank() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Assertions.assertEquals(a.rank(), 2);
     }
 
     @Test
-    void testNegate() {
+    public void testNegate() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(-1), BigDecimal.valueOf(-2)},
@@ -106,7 +106,7 @@ public class TestMatrix {
     }
 
     @Test
-    void testTriangle() {
+    public void testTriangle() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},

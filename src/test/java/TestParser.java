@@ -16,18 +16,18 @@ import java.util.Random;
 
 public class TestParser {
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         System.out.println("Parser test is starting");
     }
 
     @Test
-    void testConstExpression() {
+    public void testConstExpression() {
         Assertions.assertEquals(new Parser().parse("1 + 2 + 3 / 5 * (1 + 2)").evaluate(), new Const(BigDecimal.valueOf(4.8)));
 
     }
 
     @Test
-    void testMatrixAdd() {
+    public void testMatrixAdd() {
         final PartOfExpression expr = new Parser().parse("{{1, 2}, {3, 4}} + {{1, 2}, {3, 4}}");
         final Matrix ans = new Matrix(new BigDecimal[][]{{BigDecimal.TWO, BigDecimal.valueOf(4)}, {BigDecimal.valueOf(6), BigDecimal.valueOf(8)}});
 
