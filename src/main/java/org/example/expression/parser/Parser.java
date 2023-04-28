@@ -70,15 +70,29 @@ public class Parser extends BaseParser {
     }
 
     private PartOfExpression parseMulDiv() {
-        PartOfExpression part = parseTypesUnaryOperationsAndBrackets();
+        PartOfExpression part = parsePower();
         skipWhitespaces();
         while (true) {
             if (take('*')) {
-                part = parseOperation("*", part, parseTypesUnaryOperationsAndBrackets());
+                part = parseOperation("*", part, parsePower());
             } else if (take('/')) {
-                part = parseOperation("/", part, parseTypesUnaryOperationsAndBrackets());
+                part = parseOperation("/", part, parsePower());
             } else if (take("solve")) {
-                part = parseOperation("solve", part, parseTypesUnaryOperationsAndBrackets());
+                part = parseOperation("solve", part, parsePower());
+            } else {
+                break;
+            }
+            skipWhitespaces();
+        }
+        return part;
+    }
+
+    private PartOfExpression parsePower() {
+        PartOfExpression part = parseTypesUnaryOperationsAndBrackets();
+        skipWhitespaces();
+        while (true) {
+            if (take("pow")) {
+                part = parseOperation("pow", part, parseTypesUnaryOperationsAndBrackets());
             } else {
                 break;
             }
@@ -155,6 +169,7 @@ public class Parser extends BaseParser {
             case "*" -> new Multiply(left, right);
             case "/" -> new Divide(left, right);
             case "solve" -> new Solve(left, right);
+            case "pow" -> new Pow(left, right);
             default -> throw error("Unsupported operation");
         };
     }

@@ -60,5 +60,10 @@ public record Const(BigDecimal value) implements PartOfExpression, Type {
     public PartOfExpression negate() {
         return new Const(value.negate());
     }
-    
+
+    @Override
+    public PartOfExpression pow(Const power) {
+        return new Const(value.pow(power.value.intValue()));
+    }
+
 }

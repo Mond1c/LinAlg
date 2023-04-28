@@ -4,6 +4,7 @@ package org.example.expression.parts;
 import org.example.expression.PartOfExpression;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -342,6 +343,21 @@ public class Matrix implements Type, PartOfExpression {
             }
         }
         return result;
+    }
+
+    private static Matrix pow(Matrix m, BigDecimal power) {
+        if (power.toBigInteger().equals(BigInteger.ONE)) {
+            return m;
+        }
+        if (power.toBigInteger().mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+            return pow(m.multiply(m), power.divide(BigDecimal.TWO));
+        }
+        return pow(m, power.subtract(BigDecimal.ONE)).multiply(m);
+    }
+
+    @Override
+    public PartOfExpression pow(Const power) {
+        return pow(this, power.value());
     }
 
     @Override

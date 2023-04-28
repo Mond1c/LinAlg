@@ -152,6 +152,11 @@ public class Tensor implements Type, PartOfExpression {
     }
 
     @Override
+    public PartOfExpression pow(Const power) {
+        throw new UnsupportedOperationException("Unsupported operation for tensor");
+    }
+
+    @Override
     public PartOfExpression evaluate() {
         return this;
     }
