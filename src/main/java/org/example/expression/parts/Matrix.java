@@ -350,7 +350,7 @@ public class Matrix implements Type, PartOfExpression {
             return m;
         }
         if (power.toBigInteger().mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
-            return pow(m.multiply(m), power.divide(BigDecimal.TWO));
+            return pow(m.multiply(m), power.divide(BigDecimal.valueOf(2)));
         }
         return pow(m, power.subtract(BigDecimal.ONE)).multiply(m);
     }
