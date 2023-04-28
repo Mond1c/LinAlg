@@ -113,4 +113,19 @@ public class TestParser {
 
         Assertions.assertEquals(expr.evaluate(), ans);
     }
+
+    @Test
+    public void testPowerConst() {
+        final PartOfExpression expr = new Parser().parse("2 pow 10");
+        final Const c = new Const(BigDecimal.valueOf(1024));
+        Assertions.assertEquals(expr.evaluate(), c);
+    }
+
+    @Test
+    public void testPowerMatrix() {
+        final PartOfExpression expr = new Parser().parse("{{1, 2}, {3, 4}} pow 10");
+        final Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(4783807), BigDecimal.valueOf(6972050)},
+                {BigDecimal.valueOf(10458075), BigDecimal.valueOf(15241882)}});
+        Assertions.assertEquals(expr.evaluate(), c);
+    }
 }

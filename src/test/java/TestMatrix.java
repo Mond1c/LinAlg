@@ -114,4 +114,14 @@ public class TestMatrix {
         a.triangle();
         Assertions.assertEquals(a, b);
     }
+
+    @Test
+    public void testPower() {
+        final Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
+                {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
+        final Const b = new Const(BigDecimal.valueOf(10));
+        final Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(4783807), BigDecimal.valueOf(6972050)},
+                {BigDecimal.valueOf(10458075), BigDecimal.valueOf(15241882)}});
+        Assertions.assertEquals(a.pow(b), c);
+    }
 }
