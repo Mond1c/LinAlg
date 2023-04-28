@@ -1,18 +1,12 @@
-import org.example.expression.PartOfExpression;
-import org.example.expression.parser.Parser;
-import org.example.expression.parts.Const;
-import org.example.expression.parts.Matrix;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import org.linalg.expression.PartOfExpression;
+import org.linalg.expression.parser.Parser;
+import org.linalg.expression.parts.Const;
+import org.linalg.expression.parts.Matrix;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Random;
 
 public class TestParser {
     @BeforeAll
