@@ -1,5 +1,5 @@
-import org.example.expression.parts.Const;
-import org.example.expression.parts.Tensor;
+import org.linalg.expression.parts.Const;
+import org.linalg.expression.parts.Tensor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
