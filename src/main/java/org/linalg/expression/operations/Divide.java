@@ -13,4 +13,10 @@ public class Divide extends BinaryOperation {
     protected PartOfExpression calculate(Type x, Type y) {
         return x.divide(y);
     }
+
+    @Override
+    public PartOfExpression diff() {
+        return new Divide(new Subtract(new Multiply(left.diff(), right), new Multiply(left, right.diff())),
+                new Multiply(right, right));
+    }
 }

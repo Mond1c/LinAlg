@@ -18,4 +18,9 @@ public class Transpose extends UnaryOperation {
         matrix.transpose();
         return matrix;
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

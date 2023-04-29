@@ -18,4 +18,9 @@ public class Inverse extends UnaryOperation {
         matrix.inverse();
         return matrix;
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

@@ -13,4 +13,9 @@ public class Negate extends UnaryOperation {
     protected PartOfExpression calculate(Type x) {
         return x.negate();
     }
+
+    @Override
+    public PartOfExpression diff() {
+        return new Negate(part.diff());
+    }
 }

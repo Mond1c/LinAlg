@@ -18,4 +18,9 @@ public class Determinant extends UnaryOperation {
         }
         return new Const(matrix.determinant());
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

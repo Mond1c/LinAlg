@@ -18,4 +18,9 @@ public class Solve extends BinaryOperation {
         }
         return Calculator.solveSystemOfEquations(matrix1, matrix2);
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

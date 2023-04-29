@@ -19,4 +19,9 @@ public class Triangle extends UnaryOperation {
         matrix.triangle();
         return matrix;
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

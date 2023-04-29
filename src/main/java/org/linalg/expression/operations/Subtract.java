@@ -14,4 +14,9 @@ public class Subtract extends BinaryOperation {
     protected PartOfExpression calculate(Type x, Type y) {
         return x.subtract(y);
     }
+
+    @Override
+    public PartOfExpression diff() {
+        return new Subtract(left.diff(), right.diff());
+    }
 }

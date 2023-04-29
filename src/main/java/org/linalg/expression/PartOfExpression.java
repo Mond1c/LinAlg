@@ -1,5 +1,8 @@
 package org.linalg.expression;
 
+import java.math.BigDecimal;
+
 public interface PartOfExpression {
-    PartOfExpression evaluate();
+    PartOfExpression evaluate(BigDecimal x);
+    PartOfExpression diff();
 }
