@@ -13,4 +13,9 @@ public class Add extends BinaryOperation {
     protected PartOfExpression calculate(Type x, Type y) {
         return x.add(y);
     }
+
+    @Override
+    public PartOfExpression diff() {
+        return new Add(left.diff(), right.diff());
+    }
 }

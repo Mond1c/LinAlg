@@ -5,6 +5,7 @@ import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.operations.*;
 import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Matrix;
+import org.linalg.expression.parts.Variable;
 import org.linalg.math.BigDecimalMath;
 
 import java.math.BigDecimal;
@@ -89,6 +90,10 @@ public class Parser extends BaseParser {
             return new Function(parseTypesUnaryOperationsAndBrackets(), "tanh", BigDecimalMath::tanh);
         } else if (take("log")) {
             return new Function(parseTypesUnaryOperationsAndBrackets(), "log", BigDecimalMath::log);
+        } else if (take('x')) {
+            return new Variable("x");
+        } else if (take("diff")) {
+            return new Diff(parseTypesUnaryOperationsAndBrackets());
         }
 
         {

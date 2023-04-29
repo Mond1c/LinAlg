@@ -4,6 +4,8 @@ package org.linalg.expression.operations;
 import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Type;
 
+import java.math.BigDecimal;
+
 public abstract class BinaryOperation implements PartOfExpression {
     protected final PartOfExpression left;
     protected final PartOfExpression right;
@@ -19,8 +21,8 @@ public abstract class BinaryOperation implements PartOfExpression {
     protected abstract PartOfExpression calculate(Type x, Type y);
 
     @Override
-    public PartOfExpression evaluate() {
-        if (!(left.evaluate() instanceof Type l) || !(right.evaluate() instanceof Type r)) {
+    public PartOfExpression evaluate(BigDecimal x) {
+        if (!(left.evaluate(x) instanceof Type l) || !(right.evaluate(x) instanceof Type r)) {
             throw new IllegalArgumentException("Can't make operation with not Type classes");
         }
         return calculate(l, r);

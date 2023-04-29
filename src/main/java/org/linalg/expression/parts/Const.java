@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 
 public record Const(BigDecimal value) implements PartOfExpression, Type {
 
+    public static final Const ZERO = new Const(BigDecimal.ZERO);
+    public static final Const ONE = new Const(BigDecimal.ONE);
+
     @Override
     public boolean equals(final Object other) {
         return (other instanceof Const c) && value.equals(c.value);
@@ -18,8 +21,13 @@ public record Const(BigDecimal value) implements PartOfExpression, Type {
     }
 
     @Override
-    public PartOfExpression evaluate() {
+    public PartOfExpression evaluate(BigDecimal x) {
         return this;
+    }
+
+    @Override
+    public PartOfExpression diff() {
+        return ZERO;
     }
 
     @Override

@@ -20,4 +20,9 @@ public class Rank extends UnaryOperation {
         }
         return new Const(BigDecimal.valueOf(matrix.rank()));
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

@@ -21,4 +21,9 @@ public class Function extends UnaryOperation {
         }
         throw new IllegalArgumentException("Functions are only for constants");
     }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
+    }
 }

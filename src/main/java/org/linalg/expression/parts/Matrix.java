@@ -361,7 +361,12 @@ public class Matrix implements Type, PartOfExpression {
     }
 
     @Override
-    public PartOfExpression evaluate() {
+    public PartOfExpression evaluate(BigDecimal x) {
         return this;
+    }
+
+    @Override
+    public PartOfExpression diff() {
+        throw new UnsupportedOperationException("You can't diff this operation");
     }
 }
