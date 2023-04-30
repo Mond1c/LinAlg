@@ -51,4 +51,8 @@ public class BigDecimalMath {
     public static BigDecimal log(BigDecimal x) {
         return applyFunction(Math::log, x);
     }
+
+    public static BigDecimal sqrt(BigDecimal x) {
+        return applyFunction(Math::sqrt, x);
+    }
 }

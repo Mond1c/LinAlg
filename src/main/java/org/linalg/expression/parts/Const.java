@@ -9,6 +9,7 @@ public record Const(BigDecimal value) implements PartOfExpression, Type {
 
     public static final Const ZERO = new Const(BigDecimal.ZERO);
     public static final Const ONE = new Const(BigDecimal.ONE);
+    public static final Const TWO = new Const(BigDecimal.TWO);
 
     @Override
     public boolean equals(final Object other) {

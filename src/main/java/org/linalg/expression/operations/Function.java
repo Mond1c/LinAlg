@@ -6,7 +6,7 @@ import org.linalg.expression.parts.Type;
 
 import java.math.BigDecimal;
 
-public class Function extends UnaryOperation {
+public abstract class Function extends UnaryOperation {
     private final java.util.function.Function<BigDecimal, BigDecimal> function;
 
     public Function(PartOfExpression part, String operation, java.util.function.Function<BigDecimal, BigDecimal> function) {
@@ -20,10 +20,5 @@ public class Function extends UnaryOperation {
             return new Const(function.apply(c.value()));
         }
         throw new IllegalArgumentException("Functions are only for constants");
-    }
-
-    @Override
-    public PartOfExpression diff() {
-        throw new UnsupportedOperationException("You can't diff this operation");
     }
 }

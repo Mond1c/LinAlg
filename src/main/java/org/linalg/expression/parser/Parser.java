@@ -71,29 +71,31 @@ public class Parser extends BaseParser {
         } else if (take("inverse")) {
             return new Inverse(parseTypesUnaryOperationsAndBrackets());
         } else if (take("sin")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "sin", BigDecimalMath::sin);
+            return new Sin(parseTypesUnaryOperationsAndBrackets());
         } else if (take("cos")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "cos", BigDecimalMath::cos);
+            return new Cos(parseTypesUnaryOperationsAndBrackets());
         } else if (take("tan")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "tan", BigDecimalMath::tan);
+            return new Tan(parseTypesUnaryOperationsAndBrackets());
         } else if (take("asin")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "asin", BigDecimalMath::asin);
+            return new Asin(parseTypesUnaryOperationsAndBrackets());
         } else if (take("acos")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "acos", BigDecimalMath::acos);
+            return new Acos(parseTypesUnaryOperationsAndBrackets());
         } else if (take("atan")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "atan", BigDecimalMath::atan);
+            return new Atan(parseTypesUnaryOperationsAndBrackets());
         } else if (take("sinh")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "sinh", BigDecimalMath::sinh);
+            return new Sinh(parseTypesUnaryOperationsAndBrackets());
         } else if (take("cosh")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "cosh", BigDecimalMath::cosh);
+            return new Cosh(parseTypesUnaryOperationsAndBrackets());
         } else if (take("tanh")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "tanh", BigDecimalMath::tanh);
+            return new Tanh(parseTypesUnaryOperationsAndBrackets());
         } else if (take("log")) {
-            return new Function(parseTypesUnaryOperationsAndBrackets(), "log", BigDecimalMath::log);
+            return new Log(parseTypesUnaryOperationsAndBrackets());
         } else if (take('x')) {
             return new Variable("x");
         } else if (take("diff")) {
             return new Diff(parseTypesUnaryOperationsAndBrackets());
+        } else if (take("sqrt")) {
+            return new Sqrt(parseTypesUnaryOperationsAndBrackets());
         }
 
         {
