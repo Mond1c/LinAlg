@@ -6,7 +6,7 @@ import org.linalg.expression.parts.Type;
 
 public class Multiply extends BinaryOperation {
     public Multiply(PartOfExpression left, PartOfExpression right) {
-        super(left, right, "*");
+        super(left, right, "*", 2);
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.linalg.expression.parts.Type;
 
 public class Negate extends UnaryOperation {
     public Negate(PartOfExpression part) {
-        super(part, "-");
+        super(part, "-", 3);
     }
 
     @Override

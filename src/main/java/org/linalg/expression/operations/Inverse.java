@@ -7,7 +7,7 @@ import org.linalg.expression.parts.Type;
 
 public class Inverse extends UnaryOperation {
     public Inverse(PartOfExpression part) {
-        super(part, "inverse");
+        super(part, "inverse", 5);
     }
 
     @Override

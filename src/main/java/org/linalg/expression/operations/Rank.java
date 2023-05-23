@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 public class Rank extends UnaryOperation {
     public Rank(PartOfExpression part) {
-        super(part, "rank");
+        super(part, "rank", 5);
     }
 
     @Override

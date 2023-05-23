@@ -10,7 +10,7 @@ public abstract class Function extends UnaryOperation {
     private final java.util.function.Function<BigDecimal, BigDecimal> function;
 
     public Function(PartOfExpression part, String operation, java.util.function.Function<BigDecimal, BigDecimal> function) {
-        super(part, operation);
+        super(part, operation, 5);
         this.function = function;
     }
 

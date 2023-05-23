@@ -7,7 +7,7 @@ import org.linalg.expression.parts.Type;
 
 public class Transpose extends UnaryOperation {
     public Transpose(PartOfExpression part) {
-        super(part, "transpose");
+        super(part, "transpose", 5);
     }
 
     @Override

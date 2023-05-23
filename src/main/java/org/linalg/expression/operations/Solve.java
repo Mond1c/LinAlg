@@ -7,7 +7,7 @@ import org.linalg.expression.parts.Type;
 
 public class Solve extends BinaryOperation {
     public Solve(PartOfExpression left, PartOfExpression right) {
-        super(left, right, "solve");
+        super(left, right, "solve", 5);
     }
 
 

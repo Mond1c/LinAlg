@@ -6,7 +6,7 @@ import org.linalg.expression.parts.Type;
 
 public class Divide extends BinaryOperation {
     public Divide(PartOfExpression left, PartOfExpression right) {
-        super(left, right, "/");
+        super(left, right, "/", 2);
     }
 
     @Override

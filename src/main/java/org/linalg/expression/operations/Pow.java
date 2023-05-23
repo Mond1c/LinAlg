@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Pow extends BinaryOperation {
 
     public Pow(PartOfExpression left, PartOfExpression right) {
-        super(left, right, "pow");
+        super(left, right, "pow", 4);
     }
 
     @Override

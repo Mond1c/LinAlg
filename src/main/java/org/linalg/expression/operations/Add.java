@@ -6,7 +6,7 @@ import org.linalg.expression.parts.Type;
 
 public class Add extends BinaryOperation {
     public Add(PartOfExpression left, PartOfExpression right) {
-        super(left, right, "+");
+        super(left, right, "+", 1);
     }
 
     @Override

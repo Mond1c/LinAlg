@@ -5,4 +5,8 @@ import java.math.BigDecimal;
 public interface PartOfExpression {
     PartOfExpression evaluate(BigDecimal x);
     PartOfExpression diff();
+
+    default String toMiniString() {
+        return toString();
+    }
 }

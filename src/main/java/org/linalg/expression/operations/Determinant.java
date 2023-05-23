@@ -8,7 +8,7 @@ import org.linalg.expression.parts.Type;
 
 public class Determinant extends UnaryOperation {
     public Determinant(PartOfExpression part) {
-        super(part, "det");
+        super(part, "det", 5);
     }
 
     @Override

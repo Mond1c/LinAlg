@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class Diff extends UnaryOperation {
     public Diff(PartOfExpression part) {
-        super(part, "diff");
+        super(part, "diff", 5);
     }
 
     @Override

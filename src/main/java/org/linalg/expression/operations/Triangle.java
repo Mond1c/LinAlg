@@ -8,7 +8,7 @@ import org.linalg.expression.parts.Type;
 public class Triangle extends UnaryOperation {
 
     public Triangle(PartOfExpression part) {
-        super(part, "triangle");
+        super(part, "triangle", 5);
     }
 
     @Override
