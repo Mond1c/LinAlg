@@ -13,4 +13,9 @@ public class Sqrt extends Function {
     public PartOfExpression diff() {
         return new Divide(part.diff(), new Multiply(Const.TWO, new Sqrt(part)));
     }
+
+    @Override
+    public String toLatexString() {
+        return "\\sqrt{" + part.toLatexString() + "}";
+    }
 }

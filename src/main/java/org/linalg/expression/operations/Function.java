@@ -21,4 +21,9 @@ public abstract class Function extends UnaryOperation {
         }
         throw new IllegalArgumentException("Functions are only for constants");
     }
+
+    @Override
+    public String toLatexString() {
+        return '\\' + operation + "(" + part.toLatexString() + ")";
+    }
 }

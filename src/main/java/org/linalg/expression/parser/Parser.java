@@ -76,11 +76,11 @@ public class Parser extends BaseParser {
             return new Cos(parseTypesUnaryOperationsAndBrackets());
         } else if (take("tan")) {
             return new Tan(parseTypesUnaryOperationsAndBrackets());
-        } else if (take("asin")) {
+        } else if (take("arcsin")) {
             return new Asin(parseTypesUnaryOperationsAndBrackets());
-        } else if (take("acos")) {
+        } else if (take("arccos")) {
             return new Acos(parseTypesUnaryOperationsAndBrackets());
-        } else if (take("atan")) {
+        } else if (take("arctan")) {
             return new Atan(parseTypesUnaryOperationsAndBrackets());
         } else if (take("sinh")) {
             return new Sinh(parseTypesUnaryOperationsAndBrackets());

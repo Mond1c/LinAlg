@@ -369,4 +369,24 @@ public class Matrix implements Type, PartOfExpression {
     public PartOfExpression diff() {
         throw new UnsupportedOperationException("You can't diff this operation");
     }
+
+    @Override
+    public String toLatexString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("\\begin{pmatrix}\n");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                builder.append(get(i, j));
+                if (j != m - 1) {
+                    builder.append(" & ");
+                }
+            }
+            if (i != n - 1) {
+                builder.append("\\\\");
+            }
+            builder.append("\n");
+        }
+        builder.append("\\end{pmatrix}");
+        return builder.toString();
+    }
 }

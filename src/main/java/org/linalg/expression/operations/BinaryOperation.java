@@ -86,4 +86,9 @@ public abstract class BinaryOperation implements PartOfExpression {
     public int getPriority() {
         return priority;
     }
+
+    @Override
+    public String toLatexString() {
+        return left.toLatexString() + " " + operation + " " + right.toLatexString();
+    }
 }

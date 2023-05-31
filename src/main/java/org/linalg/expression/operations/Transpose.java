@@ -23,4 +23,9 @@ public class Transpose extends UnaryOperation {
     public PartOfExpression diff() {
         throw new UnsupportedOperationException("You can't diff this operation");
     }
+
+    @Override
+    public String toLatexString() {
+        return part.toLatexString() + "^{T}";
+    }
 }
