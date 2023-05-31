@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class Acos extends Function {
     public Acos(PartOfExpression part) {
-        super(part, "acos", BigDecimalMath::acos);
+        super(part, "arccos", BigDecimalMath::acos);
     }
 
     @Override

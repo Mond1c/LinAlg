@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class Asin extends Function {
     public Asin(PartOfExpression part) {
-        super(part, "asin", BigDecimalMath::asin);
+        super(part, "arcsin", BigDecimalMath::asin);
     }
 
     @Override

@@ -19,4 +19,9 @@ public class Divide extends BinaryOperation {
         return new Divide(new Subtract(new Multiply(left.diff(), right), new Multiply(left, right.diff())),
                 new Multiply(right, right));
     }
+
+    @Override
+    public String toLatexString() {
+        return "\\frac{" + left.toLatexString() + "}{" + right.toLatexString() + "}";
+    }
 }

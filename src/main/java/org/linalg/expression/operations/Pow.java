@@ -38,4 +38,9 @@ public class Pow extends BinaryOperation {
         }
         return new Multiply(right, new Pow(left, k));
     }
+
+    @Override
+    public String toLatexString() {
+        return left.toLatexString() + "^{" + right.toLatexString() + "}";
+    }
 }

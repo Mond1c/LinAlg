@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public abstract class UnaryOperation implements PartOfExpression {
     protected final PartOfExpression part;
-    private final String operation;
+    protected final String operation;
     private final int priority;
 
     public UnaryOperation(PartOfExpression part, String operation, int priority) {
@@ -46,5 +46,10 @@ public abstract class UnaryOperation implements PartOfExpression {
             return operation + " " + part.toMiniString();
         }
         return operation + "(" + part.toMiniString() + ")";
+    }
+
+    @Override
+    public String toLatexString() {
+        return operation + " " + part.toLatexString();
     }
 }

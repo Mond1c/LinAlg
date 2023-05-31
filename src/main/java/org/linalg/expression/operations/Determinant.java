@@ -23,4 +23,9 @@ public class Determinant extends UnaryOperation {
     public PartOfExpression diff() {
         throw new UnsupportedOperationException("You can't diff this operation");
     }
+
+    @Override
+    public String toMiniString() {
+        return "\\det" + part.toLatexString();
+    }
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class Atan extends Function {
     public Atan(PartOfExpression part) {
-        super(part, "atan", BigDecimalMath::atan);
+        super(part, "arctan", BigDecimalMath::atan);
     }
 
     @Override

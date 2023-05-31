@@ -25,4 +25,9 @@ public class Rank extends UnaryOperation {
     public PartOfExpression diff() {
         throw new UnsupportedOperationException("You can't diff this operation");
     }
+
+    @Override
+    public String toLatexString() {
+        return "rank" + part.toLatexString();
+    }
 }

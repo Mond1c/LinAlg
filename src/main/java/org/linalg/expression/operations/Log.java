@@ -15,4 +15,9 @@ public class Log extends Function {
     public PartOfExpression diff() {
         return new Divide(Const.ONE, part);
     }
+
+    @Override
+    public String toLatexString() {
+        return "\\ln(" + part.toLatexString() + ")";
+    }
 }

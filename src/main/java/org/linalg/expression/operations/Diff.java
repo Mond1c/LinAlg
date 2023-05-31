@@ -2,7 +2,6 @@ package org.linalg.expression.operations;
 
 import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Type;
-
 import java.math.BigDecimal;
 
 public class Diff extends UnaryOperation {
