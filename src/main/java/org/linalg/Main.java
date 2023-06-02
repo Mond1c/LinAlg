@@ -21,10 +21,10 @@ public class Main {
                 if (variables.length != 2) {
                     throw new RuntimeException("You can use only one variable, example: at x = 3");
                 }
-                if (!variables[0].equals("x")) {
+                if (!variables[0].trim().equals("x")) {
                     throw new RuntimeException("You can use only x variable!");
                 }
-                BigDecimal x = new BigDecimal(variables[1]);
+                BigDecimal x = new BigDecimal(variables[1].trim());
                 System.out.println(new Parser().parse(parts[0]).evaluate(x).toLatexString());
             } else {
                 System.out.println(new Parser().parse(request).evaluate().toLatexString());
