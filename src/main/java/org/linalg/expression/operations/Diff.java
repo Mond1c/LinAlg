@@ -11,6 +11,11 @@ public class Diff extends UnaryOperation {
 
     @Override
     public PartOfExpression evaluate(BigDecimal x) {
+        return part.diff().evaluate(x);
+    }
+
+    @Override
+    public PartOfExpression evaluate() {
         return part.diff();
     }
 
