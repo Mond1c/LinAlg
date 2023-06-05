@@ -3,7 +3,6 @@ package org.linalg.expression.operations;
 import org.linalg.expression.PartOfExpression;
 import org.linalg.math.BigDecimalMath;
 
-import java.math.BigDecimal;
 
 public class Cos extends Function {
     public Cos(PartOfExpression part) {
@@ -12,6 +11,9 @@ public class Cos extends Function {
 
     @Override
     public PartOfExpression diff() {
+        if (containsVariable(part)) {
+            return new Multiply(new Negate(new Sin(part)), part.diff());
+        }
         return new Negate(new Sin(part));
     }
 }

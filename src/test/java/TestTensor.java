@@ -89,8 +89,4 @@ public class TestTensor {
         Assertions.assertEquals(a.multiply(b), answer);
     }
 
-    @Test
-    public void testMultiplyByTensor() {
-
-    }
 }

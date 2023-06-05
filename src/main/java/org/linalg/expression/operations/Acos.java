@@ -4,7 +4,6 @@ import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Const;
 import org.linalg.math.BigDecimalMath;
 
-import java.math.BigDecimal;
 
 public class Acos extends Function {
     public Acos(PartOfExpression part) {
@@ -13,6 +12,10 @@ public class Acos extends Function {
 
     @Override
     public PartOfExpression diff() {
+        if (containsVariable(this)) {
+            return new Multiply(new Negate(new Divide(Const.ONE, new Sqrt(new Subtract(Const.ONE, new Multiply(part, part))))), 
+                part.diff());
+        }
         return new Negate(new Divide(Const.ONE, new Sqrt(new Subtract(Const.ONE, new Multiply(part, part)))));
     }
 }

@@ -4,8 +4,6 @@ import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Const;
 import org.linalg.math.BigDecimalMath;
 
-import java.math.BigDecimal;
-
 public class Atan extends Function {
     public Atan(PartOfExpression part) {
         super(part, "arctan", BigDecimalMath::atan);
@@ -13,6 +11,9 @@ public class Atan extends Function {
 
     @Override
     public PartOfExpression diff() {
+        if (containsVariable(part)) {
+            return new Divide(part.diff(), new Add(Const.ONE, new Multiply(part, part)));
+        }
         return new Divide(Const.ONE, new Add(Const.ONE, new Multiply(part, part)));
     }
 }

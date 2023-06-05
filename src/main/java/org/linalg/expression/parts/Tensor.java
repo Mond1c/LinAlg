@@ -5,12 +5,12 @@ import org.linalg.expression.PartOfExpression;
 import java.math.BigDecimal;
 
 public class Tensor implements Type, PartOfExpression {
-    private BigDecimal[][][][][] data;
-    private int n;
-    private int m;
-    private int k;
-    private int l;
-    private int p;
+    private final BigDecimal[][][][][] data;
+    private final int n;
+    private final int m;
+    private final int k;
+    private final int l;
+    private final int p;
 
     public Tensor(int n, int m, int k, int l, int p) {
         data = new BigDecimal[n][m][k][l][p];

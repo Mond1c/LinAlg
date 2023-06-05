@@ -4,8 +4,6 @@ import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Const;
 import org.linalg.math.BigDecimalMath;
 
-import java.math.BigDecimal;
-
 public class Log extends Function {
     public Log(PartOfExpression part) {
         super(part, "log", BigDecimalMath::log);
@@ -13,6 +11,9 @@ public class Log extends Function {
 
     @Override
     public PartOfExpression diff() {
+        if (containsVariable(part)) {
+            return new Divide(part.diff(), part);
+        }
         return new Divide(Const.ONE, part);
     }
 

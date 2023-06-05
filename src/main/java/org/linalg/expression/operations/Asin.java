@@ -4,8 +4,6 @@ import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Const;
 import org.linalg.math.BigDecimalMath;
 
-import java.math.BigDecimal;
-
 public class Asin extends Function {
     public Asin(PartOfExpression part) {
         super(part, "arcsin", BigDecimalMath::asin);
@@ -13,6 +11,9 @@ public class Asin extends Function {
 
     @Override
     public PartOfExpression diff() {
+        if (containsVariable(part)) {
+            return new Multiply(new Divide(Const.ONE, new Sqrt(new Subtract(Const.ONE, new Multiply(part, part)))), part.diff());
+        }
         return new Divide(Const.ONE, new Sqrt(new Subtract(Const.ONE, new Multiply(part, part))));
     }
 }

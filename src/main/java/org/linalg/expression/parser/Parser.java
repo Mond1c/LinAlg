@@ -6,7 +6,6 @@ import org.linalg.expression.operations.*;
 import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Matrix;
 import org.linalg.expression.parts.Variable;
-import org.linalg.math.BigDecimalMath;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -142,12 +141,8 @@ public class Parser extends BaseParser {
     private PartOfExpression parsePower() {
         PartOfExpression part = parseTypesUnaryOperationsAndBrackets();
         skipWhitespaces();
-        while (true) {
-            if (take("pow")) {
-                part = parseOperation("pow", part, parseTypesUnaryOperationsAndBrackets());
-            } else {
-                break;
-            }
+        while (take("pow")) {
+            part = parseOperation("pow", part, parseTypesUnaryOperationsAndBrackets());
             skipWhitespaces();
         }
         return part;

@@ -2,15 +2,13 @@ package org.linalg;
 
 
 import org.linalg.expression.parser.Parser;
-import org.linalg.expression.parts.Const;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            final Scanner scanner = new Scanner(System.in);
+        try (final Scanner scanner = new Scanner(System.in)) {
             String request = scanner.nextLine();
             if (request.contains(" at ")) {
                 String[] parts = request.split("at");

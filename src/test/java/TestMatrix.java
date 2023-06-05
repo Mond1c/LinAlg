@@ -62,7 +62,7 @@ public class TestMatrix {
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(3)},
                 {BigDecimal.valueOf(2), BigDecimal.valueOf(4)}});
-        a.transpose();;
+        a.transpose();
         Assertions.assertEquals(a, b);
     }
 

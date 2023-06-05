@@ -3,6 +3,7 @@ package org.linalg.expression.operations;
 
 import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.parts.Type;
+import org.linalg.expression.parts.Variable;
 
 import java.math.BigDecimal;
 
@@ -18,6 +19,19 @@ public abstract class UnaryOperation implements PartOfExpression {
     }
 
     protected abstract PartOfExpression calculate(Type x);
+
+    protected boolean containsVariable(PartOfExpression part) {
+        if (part instanceof Variable) {
+            return true;
+        }
+        if (part instanceof BinaryOperation binaryOperation) {
+            return binaryOperation.containsVariable(binaryOperation);
+        }
+        if (part instanceof UnaryOperation unaryOperation) {
+            return containsVariable(unaryOperation.part);
+        }
+        return false;
+    }
 
     @Override
     public PartOfExpression evaluate(BigDecimal x) {
