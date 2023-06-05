@@ -27,4 +27,9 @@ public class Variable implements PartOfExpression {
         return Const.ONE;
     }
 
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Variable variable && variable.name.equals(name);
+    }
 }
