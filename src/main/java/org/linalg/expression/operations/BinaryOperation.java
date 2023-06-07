@@ -2,6 +2,7 @@ package org.linalg.expression.operations;
 
 
 import org.linalg.expression.PartOfExpression;
+import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Type;
 import org.linalg.expression.parts.Variable;
 
@@ -95,6 +96,22 @@ public abstract class BinaryOperation implements PartOfExpression {
             builder.append(')');
         }
         return builder.toString();
+    }
+
+    @Override
+    public PartOfExpression simplify() {
+        PartOfExpression l = left.simplify();
+        PartOfExpression r = right.simplify();
+        if (l instanceof Const lhs && r instanceof Const rhs) {
+            return calculate(lhs, rhs);
+        }
+        if (l.equals(Const.ZERO)) {
+            return r;
+        }
+        if (r.equals(Const.ZERO)) {
+            return l;
+        }
+        return this;
     }
 
     public int getPriority() {

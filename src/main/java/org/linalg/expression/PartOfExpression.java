@@ -17,4 +17,8 @@ public interface PartOfExpression {
     default String toLatexString() {
         return toString();
     }
+
+    default PartOfExpression simplify() {
+        return this;
+    }
 }

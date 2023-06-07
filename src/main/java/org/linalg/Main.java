@@ -23,9 +23,9 @@ public class Main {
                     throw new RuntimeException("You can use only x variable!");
                 }
                 BigDecimal x = new BigDecimal(variables[1].trim());
-                System.out.println(new Parser().parse(parts[0]).evaluate(x).toLatexString());
+                System.out.println(new Parser().parse(parts[0]).evaluate(x).simplify().toLatexString());
             } else {
-                System.out.println(new Parser().parse(request).evaluate().toLatexString());
+                System.out.println(new Parser().parse(request).evaluate().simplify().toLatexString());
             }
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
