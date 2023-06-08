@@ -28,4 +28,9 @@ public class Determinant extends UnaryOperation {
     public String toMiniString() {
         return "\\det" + part.toLatexString();
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Determinant(super.simplify());
+    }
 }

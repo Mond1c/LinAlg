@@ -16,4 +16,9 @@ public class Atan extends Function {
         }
         return new Divide(Const.ONE, new Add(Const.ONE, new Multiply(part, part)));
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Atan(super.simplify());
+    }
 }

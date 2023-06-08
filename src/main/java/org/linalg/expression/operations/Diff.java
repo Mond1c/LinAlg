@@ -28,4 +28,9 @@ public class Diff extends UnaryOperation {
     protected PartOfExpression calculate(Type x) {
         throw new UnsupportedOperationException("calculate is an unsupported operation");
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Diff(super.simplify());
+    }
 }

@@ -28,4 +28,9 @@ public class Transpose extends UnaryOperation {
     public String toLatexString() {
         return part.toLatexString() + "^{T}";
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Transpose(super.simplify());
+    }
 }

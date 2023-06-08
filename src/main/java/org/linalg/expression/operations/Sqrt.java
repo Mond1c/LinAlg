@@ -18,4 +18,9 @@ public class Sqrt extends Function {
     public String toLatexString() {
         return "\\sqrt{" + part.toLatexString() + "}";
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Sqrt(super.simplify());
+    }
 }

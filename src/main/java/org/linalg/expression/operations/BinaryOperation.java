@@ -9,8 +9,8 @@ import org.linalg.expression.parts.Variable;
 import java.math.BigDecimal;
 
 public abstract class BinaryOperation implements PartOfExpression {
-    protected final PartOfExpression left;
-    protected final PartOfExpression right;
+    protected PartOfExpression left;
+    protected PartOfExpression right;
     protected final String operation;
     private final int priority;
 
@@ -111,6 +111,8 @@ public abstract class BinaryOperation implements PartOfExpression {
         if (r.equals(Const.ZERO)) {
             return l;
         }
+        left = l;
+        right = r;
         return this;
     }
 

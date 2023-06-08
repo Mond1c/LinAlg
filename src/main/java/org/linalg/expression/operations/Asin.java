@@ -16,4 +16,9 @@ public class Asin extends Function {
         }
         return new Divide(Const.ONE, new Sqrt(new Subtract(Const.ONE, new Multiply(part, part))));
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Asin(super.simplify());
+    }
 }

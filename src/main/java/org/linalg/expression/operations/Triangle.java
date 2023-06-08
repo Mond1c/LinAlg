@@ -24,4 +24,9 @@ public class Triangle extends UnaryOperation {
     public PartOfExpression diff() {
         throw new UnsupportedOperationException("You can't diff this operation");
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Triangle(super.simplify());
+    }
 }

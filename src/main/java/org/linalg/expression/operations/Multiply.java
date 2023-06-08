@@ -28,6 +28,12 @@ public class Multiply extends BinaryOperation {
             || r instanceof Const rhs && rhs.equals(Const.ZERO)) {
             return Const.ZERO;
         }
+        if (l instanceof Const lhs && lhs.equals(Const.ONE)) {
+            return r;
+        }
+        if (r instanceof Const rhs && rhs.equals(Const.ONE)) {
+            return l;
+        }
         return super.simplify();
     }
 }
