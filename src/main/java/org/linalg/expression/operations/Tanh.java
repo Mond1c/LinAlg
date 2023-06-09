@@ -16,4 +16,9 @@ public class Tanh extends Function {
         }
         return new Divide(Const.ONE, new Multiply(new Cosh(part), new Cosh(part)));
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Tanh(super.simplify());
+    }
 }

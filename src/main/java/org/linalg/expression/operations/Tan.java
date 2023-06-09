@@ -16,4 +16,9 @@ public class Tan extends Function {
         }
         return new Divide(Const.ONE, new Multiply(new Cos(part), new Cos(part)));
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Tan(super.simplify());
+    }
 }

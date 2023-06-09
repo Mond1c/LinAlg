@@ -15,4 +15,9 @@ public class Sin extends Function {
         }
         return new Cos(part);
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Sin(super.simplify());
+    }
 }

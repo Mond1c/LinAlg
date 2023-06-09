@@ -18,4 +18,9 @@ public class Acos extends Function {
         }
         return new Negate(new Divide(Const.ONE, new Sqrt(new Subtract(Const.ONE, new Multiply(part, part)))));
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Acos(super.simplify());
+    }
 }

@@ -66,4 +66,9 @@ public abstract class UnaryOperation implements PartOfExpression {
     public String toLatexString() {
         return operation + " " + part.toLatexString();
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return part.simplify();
+    }
 }
