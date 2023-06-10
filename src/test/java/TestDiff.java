@@ -1,9 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.linalg.expression.operations.Add;
-import org.linalg.expression.operations.Divide;
-import org.linalg.expression.operations.Multiply;
-import org.linalg.expression.operations.Subtract;
+import org.linalg.expression.PartOfExpression;
+import org.linalg.expression.operations.*;
 import org.linalg.expression.parser.Parser;
 import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Variable;
@@ -58,5 +56,33 @@ public class TestDiff {
                 PARSER.parse("diff (0 / 1)").evaluate());
         Assertions.assertEquals(new Divide(new Subtract(new Multiply(Const.ZERO, new Variable("x")), new Multiply(Const.TWO, Const.ONE)), new Multiply(new Variable("x"), new Variable("x"))),
                 PARSER.parse("diff (2 / x)").evaluate());
+    }
+
+    @Test
+    public void testPow() {
+        for (int i = 0; i < TEST_COUNT; i++) {
+            final BigDecimal power = BigDecimal.valueOf(RANDOM.nextInt());
+            final String expr = "diff (x pow " + power + ")";
+            Assertions.assertEquals(new Multiply(new Const(power), new Pow(new Variable("x"), new Const(power.subtract(BigDecimal.ONE)))),
+                    PARSER.parse(expr).evaluate());
+        }
+    }
+
+    @Test
+    public void testTrigonometric() {
+        for (int i = 0; i < TEST_COUNT; i++) {
+            final Const coefficient = new Const(BigDecimal.valueOf(RANDOM.nextInt()));
+            final PartOfExpression diffPart = new Add(new Multiply(Const.ZERO, new Variable("x")),
+                    new Multiply(coefficient, Const.ONE));
+            final PartOfExpression part = new Multiply(coefficient, new Variable("x"));
+            String expr = "diff (sin(" + coefficient + " * x))";
+            Assertions.assertEquals(new Multiply(new Cos(part), diffPart),
+                    PARSER.parse(expr).evaluate());
+            expr = "diff (cos(" + coefficient + " * x))";
+            Assertions.assertEquals(new Multiply(new Negate(new Sin(part)), diffPart),
+                    PARSER.parse(expr).evaluate());
+            expr = "diff (tan(" + coefficient + " * x))";
+            Assertions.assertEquals(new Divide(diffPart, new Multiply(new Cos(part), new Cos(part))), PARSER.parse(expr).evaluate());
+        }
     }
 }

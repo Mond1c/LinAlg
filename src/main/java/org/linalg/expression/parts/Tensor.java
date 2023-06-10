@@ -5,7 +5,7 @@ import org.linalg.expression.PartOfExpression;
 import java.math.BigDecimal;
 
 public class Tensor implements Type, PartOfExpression {
-    private final BigDecimal[][][][][] data;
+    private final BigDecimal[][][][][] data; // TODO: Need to add implementation for tensors with more than 5 indexes.
     private final int n;
     private final int m;
     private final int k;
@@ -99,7 +99,7 @@ public class Tensor implements Type, PartOfExpression {
         return answer;
     }
 
-    public Tensor multiply(Tensor other) {
+    public Tensor multiply(Tensor other) { // TODO: What's the fuck is this? (I don't know how to do it for every tensors)
         throw new UnsupportedOperationException("This operation will be available in the future");
     }
 
