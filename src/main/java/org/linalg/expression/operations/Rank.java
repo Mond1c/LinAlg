@@ -30,4 +30,9 @@ public class Rank extends UnaryOperation {
     public String toLatexString() {
         return "rank" + part.toLatexString();
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Rank(super.simplify());
+    }
 }

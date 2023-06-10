@@ -15,4 +15,9 @@ public class Sinh extends Function {
         }
         return new Cosh(part);
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Sinh(super.simplify());
+    }
 }

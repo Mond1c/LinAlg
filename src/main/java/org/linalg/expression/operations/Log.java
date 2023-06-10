@@ -21,4 +21,9 @@ public class Log extends Function {
     public String toLatexString() {
         return "\\ln(" + part.toLatexString() + ")";
     }
+
+    @Override
+    public PartOfExpression simplify() {
+        return new Log(super.simplify());
+    }
 }

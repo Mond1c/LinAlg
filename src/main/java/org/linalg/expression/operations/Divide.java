@@ -2,6 +2,7 @@ package org.linalg.expression.operations;
 
 
 import org.linalg.expression.PartOfExpression;
+import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Type;
 
 public class Divide extends BinaryOperation {
@@ -23,5 +24,18 @@ public class Divide extends BinaryOperation {
     @Override
     public String toLatexString() {
         return "\\frac{" + left.toLatexString() + "}{" + right.toLatexString() + "}";
+    }
+
+    @Override
+    public PartOfExpression simplify() {
+        PartOfExpression l = left.simplify();
+        PartOfExpression r = right.simplify();
+        if (l instanceof Const lhs && lhs.equals(Const.ZERO)) {
+            return Const.ZERO;
+        }
+        if (r instanceof Const rhs && rhs.equals(Const.ZERO)) {
+            throw new ArithmeticException("Division by zero!");
+        }
+        return super.simplify();
     }
 }

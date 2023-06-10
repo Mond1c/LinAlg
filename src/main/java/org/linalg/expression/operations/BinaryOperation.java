@@ -2,14 +2,15 @@ package org.linalg.expression.operations;
 
 
 import org.linalg.expression.PartOfExpression;
+import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Type;
 import org.linalg.expression.parts.Variable;
 
 import java.math.BigDecimal;
 
 public abstract class BinaryOperation implements PartOfExpression {
-    protected final PartOfExpression left;
-    protected final PartOfExpression right;
+    protected PartOfExpression left;
+    protected PartOfExpression right;
     protected final String operation;
     private final int priority;
 
@@ -95,6 +96,24 @@ public abstract class BinaryOperation implements PartOfExpression {
             builder.append(')');
         }
         return builder.toString();
+    }
+
+    @Override
+    public PartOfExpression simplify() {
+        PartOfExpression l = left.simplify();
+        PartOfExpression r = right.simplify();
+        if (l instanceof Const lhs && r instanceof Const rhs) {
+            return calculate(lhs, rhs);
+        }
+        if (l.equals(Const.ZERO)) {
+            return r;
+        }
+        if (r.equals(Const.ZERO)) {
+            return l;
+        }
+        left = l;
+        right = r;
+        return this;
     }
 
     public int getPriority() {
