@@ -30,7 +30,7 @@ public class Main {
                 System.out.println(new Parser().parse(request).evaluate().simplify().toLatexString());
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception: " + e.getMessage());
         } finally {
             scanner.close();
         }
