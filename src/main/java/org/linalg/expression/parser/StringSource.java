@@ -1,5 +1,7 @@
 package org.linalg.expression.parser;
 
+import org.linalg.expression.parser.exceptions.ParserException;
+
 public class StringSource {
     private final String data;
     private int pos;
@@ -28,7 +30,7 @@ public class StringSource {
         return data.charAt(pos);
     }
 
-    public IllegalArgumentException error(final String message) {
-        return new IllegalArgumentException(pos + ": " + message);
+    public RuntimeException error(final String message) {
+        return new ParserException(data, pos, message);
     }
 }
