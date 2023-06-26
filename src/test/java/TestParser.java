@@ -9,10 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 public class TestParser {
-    @BeforeAll
-    public static void setup() {
-        System.out.println("Parser test is starting");
-    }
 
     @Test
     public void testConstExpression() {

@@ -8,10 +8,6 @@ import java.math.BigDecimal;
 
 public class TestMatrix {
 
-    @BeforeAll
-    public static void setup() {
-        System.out.println("Matrix test is starting");
-    }
 
     @Test
     public void testAdd() {
