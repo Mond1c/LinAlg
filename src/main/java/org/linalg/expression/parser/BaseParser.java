@@ -1,5 +1,7 @@
 package org.linalg.expression.parser;
 
+import org.linalg.expression.parser.exceptions.ParserException;
+
 public class BaseParser {
     private static final char END = '\0';
     private StringSource source;
@@ -75,7 +77,7 @@ public class BaseParser {
         }
     }
 
-    protected IllegalArgumentException error(final String message) {
+    protected RuntimeException error(final String message) {
         return source.error(message);
     }
 
