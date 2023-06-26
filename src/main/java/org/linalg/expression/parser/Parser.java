@@ -197,8 +197,8 @@ public class Parser extends BaseParser {
                 throw error("You can use only two {");
             }
         }
-        if (bracketCount != 0) {
-            throw error("Expected {, but found " + ch);
+        if (bracketCount > 0) {
+            throw error("Expected more }");
         }
         BigDecimal[][] fixedData = new BigDecimal[n][m];
         int k = 0;
