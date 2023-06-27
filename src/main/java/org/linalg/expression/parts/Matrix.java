@@ -295,14 +295,6 @@ public class Matrix implements Type, PartOfExpression {
         return true;
     }
 
-    public static void readMatrix(Matrix matrix, final Scanner scanner) {
-        for (int i = 0; i < matrix.n; i++) {
-            for (int j = 0; j < matrix.m; j++) {
-                matrix.data[i][j] = scanner.nextBigDecimal();
-            }
-        }
-    }
-
     @Override
     public PartOfExpression add(Type other) {
         if (other instanceof Matrix matrix) {

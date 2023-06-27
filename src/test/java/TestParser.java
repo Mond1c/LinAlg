@@ -3,7 +3,6 @@ import org.linalg.expression.parser.Parser;
 import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Matrix;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
