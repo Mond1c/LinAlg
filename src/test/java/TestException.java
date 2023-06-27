@@ -1,10 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.linalg.expression.parser.Parser;
 import org.linalg.expression.parser.exceptions.ParserException;
 
-public class ExceptionTest {
+public class TestException {
     private final static Parser PARSER = new Parser();
 
     @Test
