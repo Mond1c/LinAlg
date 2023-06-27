@@ -8,10 +8,6 @@ import java.math.BigDecimal;
 
 public class TestMatrix {
 
-    @BeforeAll
-    public static void setup() {
-        System.out.println("Matrix test is starting");
-    }
 
     @Test
     public void testAdd() {
@@ -21,7 +17,7 @@ public class TestMatrix {
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(2), BigDecimal.valueOf(4)},
                 {BigDecimal.valueOf(6), BigDecimal.valueOf(8)}});
-        Assertions.assertEquals(a.add(b), c);
+        Assertions.assertEquals(c, a.add(b));
     }
 
     @Test
@@ -32,7 +28,7 @@ public class TestMatrix {
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
-        Assertions.assertEquals(a.subtract(b), c);
+        Assertions.assertEquals(c, a.subtract(b));
     }
 
     @Test
@@ -42,7 +38,7 @@ public class TestMatrix {
         BigDecimal b = BigDecimal.TWO;
         Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(2), BigDecimal.valueOf(4)},
                 {BigDecimal.valueOf(6), BigDecimal.valueOf(8)}});
-        Assertions.assertEquals(a.multiply(new Const(b)), c);
+        Assertions.assertEquals(c, a.multiply(new Const(b)));
     }
 
     @Test
@@ -53,7 +49,7 @@ public class TestMatrix {
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(7), BigDecimal.valueOf(10)},
                 {BigDecimal.valueOf(15), BigDecimal.valueOf(22)}});
-        Assertions.assertEquals(a.multiply(b), c);
+        Assertions.assertEquals(c, a.multiply(b));
     }
 
     @Test
@@ -63,7 +59,7 @@ public class TestMatrix {
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(3)},
                 {BigDecimal.valueOf(2), BigDecimal.valueOf(4)}});
         a.transpose();
-        Assertions.assertEquals(a, b);
+        Assertions.assertEquals(b, a);
     }
 
     @Test
@@ -73,21 +69,21 @@ public class TestMatrix {
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(-2), BigDecimal.valueOf(1)},
                 {BigDecimal.valueOf(1.5), BigDecimal.valueOf(-0.5)}});
         a.inverse();
-        Assertions.assertEquals(a, b);
+        Assertions.assertEquals(b, a);
     }
 
     @Test
     public void testDeterminant() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
-        Assertions.assertEquals(a.determinant(), BigDecimal.TWO.negate());
+        Assertions.assertEquals(BigDecimal.TWO.negate(), a.determinant());
     }
 
     @Test
     public void testRank() {
         Matrix a = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
-        Assertions.assertEquals(a.rank(), 2);
+        Assertions.assertEquals(2, a.rank());
     }
 
     @Test
@@ -96,7 +92,7 @@ public class TestMatrix {
                 {BigDecimal.valueOf(3), BigDecimal.valueOf(4)}});
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(-1), BigDecimal.valueOf(-2)},
                 {BigDecimal.valueOf(-3), BigDecimal.valueOf(-4)}});
-        Assertions.assertEquals(a.negate(), b);
+        Assertions.assertEquals(b, a.negate());
     }
 
     @Test
@@ -106,7 +102,7 @@ public class TestMatrix {
         Matrix b = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(1), BigDecimal.valueOf(2)},
                 {BigDecimal.valueOf(0), BigDecimal.valueOf(-2)}});
         a.triangle();
-        Assertions.assertEquals(a, b);
+        Assertions.assertEquals(b, a);
     }
 
     @Test
@@ -116,6 +112,6 @@ public class TestMatrix {
         final Const b = new Const(BigDecimal.valueOf(10));
         final Matrix c = new Matrix(new BigDecimal[][]{{BigDecimal.valueOf(4783807), BigDecimal.valueOf(6972050)},
                 {BigDecimal.valueOf(10458075), BigDecimal.valueOf(15241882)}});
-        Assertions.assertEquals(a.pow(b), c);
+        Assertions.assertEquals(c, a.pow(b));
     }
 }

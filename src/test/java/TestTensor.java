@@ -33,7 +33,7 @@ public class TestTensor {
                                         {BigDecimal.valueOf(14), BigDecimal.valueOf(16), BigDecimal.valueOf(18)}
                                 }}}});
 
-        Assertions.assertEquals(a.add(b), answer);
+        Assertions.assertEquals(answer, a.add(b));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestTensor {
                                         {BigDecimal.valueOf(6), BigDecimal.valueOf(7), BigDecimal.valueOf(8)}
                                 }}}});
 
-        Assertions.assertEquals(a.subtract(b), answer);
+        Assertions.assertEquals(answer, a.subtract(b));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TestTensor {
                                         {BigDecimal.valueOf(14), BigDecimal.valueOf(16), BigDecimal.valueOf(18)}
                                 }}}});
 
-        Assertions.assertEquals(a.multiply(b), answer);
+        Assertions.assertEquals(answer, a.multiply(b));
     }
 
 }
