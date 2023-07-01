@@ -1,7 +1,5 @@
 package org.linalg.expression.parser;
 
-import org.linalg.expression.parser.exceptions.ParserException;
-
 public class BaseParser {
     private static final char END = '\0';
     private StringSource source;
@@ -26,21 +24,6 @@ public class BaseParser {
         return ch == expected;
     }
 
-    protected boolean test(final String expected) {
-        int i;
-        char c = ch;
-        for (i = 0; i < expected.length(); i++) {
-            if (!take(expected.charAt(i))) {
-                source.back(i + 1);
-                ch = c;
-                return false;
-            }
-        }
-        source.back(i);
-        ch = c;
-        return true;
-    }
-
     protected boolean take(final char expected) {
         if (test(expected)) {
             take();
@@ -59,12 +42,6 @@ public class BaseParser {
             }
         }
         return true;
-    }
-
-    protected void expect(final char expected) {
-        if (!take(expected)) {
-            throw error("Expected '" + expected + "', found '" + ch + "'");
-        }
     }
 
     protected boolean eof() {

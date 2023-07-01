@@ -124,4 +124,12 @@ public abstract class BinaryOperation implements PartOfExpression {
     public String toLatexString() {
         return left.toLatexString() + " " + operation + " " + right.toLatexString();
     }
+
+    @Override
+    public PartOfExpression evaluate() {
+        if (left instanceof Type c1 && right instanceof Type c2) {
+            return calculate(c1, c2);
+        }
+        return this;
+    }
 }

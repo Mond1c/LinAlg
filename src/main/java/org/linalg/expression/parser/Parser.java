@@ -3,7 +3,6 @@ package org.linalg.expression.parser;
 
 import org.linalg.expression.PartOfExpression;
 import org.linalg.expression.operations.*;
-import org.linalg.expression.parser.exceptions.ParserException;
 import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Matrix;
 import org.linalg.expression.parts.Variable;

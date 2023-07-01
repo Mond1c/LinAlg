@@ -3,10 +3,10 @@ import org.linalg.expression.parser.Parser;
 import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Matrix;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class TestParser {
     private final static Parser PARSER = new Parser();
@@ -14,7 +14,7 @@ public class TestParser {
 
     @Test
     public void testConstExpression() {
-        Assertions.assertEquals(new Const(BigDecimal.valueOf(4.8)), PARSER.parse("1 + 2 + 3 / 5 * (1 + 2)").evaluate(BigDecimal.ZERO));
+        Assertions.assertEquals(new Const(BigDecimal.valueOf(4.8).divide(BigDecimal.ONE, 10, RoundingMode.HALF_UP)), PARSER.parse("1 + 2 + 3 / 5 * (1 + 2)").evaluate(BigDecimal.ZERO));
 
     }
 

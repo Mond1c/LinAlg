@@ -4,6 +4,7 @@ package org.linalg.expression.parts;
 import org.linalg.expression.PartOfExpression;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public record Const(BigDecimal value) implements PartOfExpression, Type {
 
@@ -60,7 +61,7 @@ public record Const(BigDecimal value) implements PartOfExpression, Type {
     @Override
     public PartOfExpression divide(Type other) {
         if (other instanceof Const c) {
-            return new Const(value.divide(c.value));
+            return new Const(value.divide(c.value, 10, RoundingMode.HALF_UP));
         }
         throw new IllegalArgumentException("You can divide to the const only a const");
     }

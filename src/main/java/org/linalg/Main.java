@@ -8,9 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
             String request = scanner.nextLine();
             if (request.contains(" at ")) {
                 String[] parts = request.split("at");
@@ -31,8 +29,6 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
-        } finally {
-            scanner.close();
         }
     }
 }
