@@ -2,6 +2,7 @@ package org.linalg.expression.operations;
 
 
 import org.linalg.expression.PartOfExpression;
+import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Type;
 import org.linalg.expression.parts.Variable;
 
@@ -70,5 +71,13 @@ public abstract class UnaryOperation implements PartOfExpression {
     @Override
     public PartOfExpression simplify() {
         return part.simplify();
+    }
+
+    @Override
+    public PartOfExpression evaluate() {
+        if (part instanceof Type c) {
+            return calculate(c);
+        }
+        return this;
     }
 }

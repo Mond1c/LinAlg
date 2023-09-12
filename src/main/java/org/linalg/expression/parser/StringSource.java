@@ -18,16 +18,9 @@ public class StringSource {
         return data.charAt(pos++);
     }
 
-    public char back() {
-        return data.charAt(pos--);
-    }
 
     public void back(int n) {
         pos -= n;
-    }
-
-    public char cur() {
-        return data.charAt(pos);
     }
 
     public RuntimeException error(final String message) {
