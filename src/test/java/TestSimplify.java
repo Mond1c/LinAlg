@@ -5,7 +5,6 @@ import org.linalg.expression.parts.Const;
 import org.linalg.expression.parts.Variable;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Random;
 
 public class TestSimplify {

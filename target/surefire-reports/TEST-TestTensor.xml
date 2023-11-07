@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="TestMatrix" time="0" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="TestTensor" time="0.01" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="21+35"/>
@@ -57,15 +57,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
   </properties>
-  <testcase classname="TestMatrix" name="TestMatrix.testMultiplyByScalar" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testSubtract" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testAdd" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testMultiplyByMatrix" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testPower" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testTranspose" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testInverse" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testDeterminant" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testRank" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testNegate" time="0"/>
-  <testcase classname="TestMatrix" name="TestMatrix.testTriangle" time="0"/>
+  <testcase classname="TestTensor" name="TestTensor.testMultiplyByScalar" time="0.01"/>
+  <testcase classname="TestTensor" name="TestTensor.testSubtract" time="0"/>
+  <testcase classname="TestTensor" name="TestTensor.testAdd" time="0"/>
 </testsuite>
